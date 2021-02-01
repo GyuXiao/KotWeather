@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_vertical"
+            android:layout_marginBottom="80dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/current"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_view_height"
+                    android:layout_marginStart="@dimen/spacing_mlarge"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/spacing_mlarge"
+                    app:cardBackgroundColor="@color/blueBackground"
+                    app:cardCornerRadius="30dp">
+
+                    <LinearLayout
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/temp_text_view"
+                            android:layout_gravity="center"
+                            android:text="20"
+                            android:textColor="@color/always_white_text"
+                            android:textSize="50sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/description_text_view"
+                            android:layout_gravity="center"
+                            android:text="Rain"
+                            android:textColor="@color/always_white_text"
+                            android:textSize="30sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <!--需要改进-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_large"
+                            android:layout_marginTop="@dimen/dp_40"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:padding="@dimen/spacing_middle">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="@string/humidity_label"
+                                        android:textColor="@android:color/white"
+                                        android:textStyle="bold" />
+                                    <View
+                                        android:layout_width="@dimen/spacing_medium"
+                                        android:layout_height="0dp" />
+
+                                    <TextSwitcher
+                                        android:id="@+id/humidity_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:padding="@dimen/spacing_middle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:textColor="@android:color/white"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="@string/wind_label"
+                                        android:textStyle="bold" />
+                                    <View
+                                        android:layout_width="@dimen/spacing_medium"
+                                        android:layout_height="0dp" />
+
+                                    <TextSwitcher
+                                        android:id="@+id/wind_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:id="@+id/animation_view"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/hourly"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_view_height"
+                    android:layout_marginStart="@dimen/spacing_mlarge"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/spacing_mlarge"
+                    app:cardBackgroundColor="@color/blueBackground"
+                    app:cardCornerRadius="30dp">
+                </androidx.cardview.widget.CardView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large"/>
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/next_5_days_hourly"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_medium"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_recycler"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_medium"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/lifeindex"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_view_height"
+                    android:layout_marginStart="@dimen/spacing_mlarge"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/spacing_mlarge"
+                    app:cardBackgroundColor="@color/blueBackground"
+                    app:cardCornerRadius="30dp">
+
+                    <include layout="@layout/life_index"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>
