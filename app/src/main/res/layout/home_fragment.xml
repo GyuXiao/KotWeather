@@ -30,10 +30,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_locationtitle" />
 
                 <TextView
                     android:id="@+id/home_title"
@@ -41,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="深圳"
                     android:textSize="25dp"
+                    android:textColor="@color/dark"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>

@@ -1,5 +1,6 @@
 package com.example.kotweather.module.addedplace.view
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -35,7 +36,6 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
 //        showSuccess()
         initAdapter()
         initHeaderView()
-        initFab()
     }
 
     override fun initData() {
@@ -74,12 +74,16 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
             }
             true
         }
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            var bundle = Bundle()
+            appViewModel.changeCurrentPlace(mAdapter.getItem(position))
+            bundle.putString("lng", mViewModel.mPlaceData.value?.get(position)?.location?.lng)
+            bundle.putString("lat", mViewModel.mPlaceData.value?.get(position)?.location?.lat)
+            bundle.putString("placeName", mAdapter.getItem(position).name)
+            Navigation.findNavController(view).navigateUp()
+        }
     }
 
-    private fun initFab() {
-        var fad_add = view?.findViewById<View>(R.id.fab_add)
-        fad_add?.visibility = View.VISIBLE
-    }
 
     private fun setPlaceList(placeList: MutableList<Place>) {
         mAdapter.setNewInstance(placeList)

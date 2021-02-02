@@ -1,6 +1,9 @@
 package com.example.kotweather.base
 
 import android.app.Application
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import com.example.kotweather.common.callback.*
 import com.kingja.loadsir.core.LoadSir
 
@@ -9,7 +12,15 @@ import com.kingja.loadsir.core.LoadSir
  * @CreateTime：2021/01/03 23:27
  */
 
-open class BaseApplication : Application() {
+open class BaseApplication : Application(), ViewModelStoreOwner {
+
+    lateinit var mAppViewModelStore : ViewModelStore
+
+    private var mFactory : ViewModelProvider.Factory? = null
+
+    override fun getViewModelStore(): ViewModelStore {
+        return mAppViewModelStore
+    }
 
     companion object {
         lateinit var instance: BaseApplication
@@ -19,6 +30,7 @@ open class BaseApplication : Application() {
         super.onCreate()
         instance = this
         initLoadSir()
+        mAppViewModelStore = ViewModelStore()
     }
 
     // LoadSir是一个加载反馈页管理框架，在加载网络或其他数据时候，
@@ -30,5 +42,19 @@ open class BaseApplication : Application() {
                 .addCallback(LoadingCallback())
                 .addCallback(EmptyCallback())
                 .commit()
+    }
+
+    /**
+     * 获取全局的ViewModel
+     */
+    fun getAppViewModelProvider() : ViewModelProvider{
+        return ViewModelProvider(this, this.getAppFactory())
+    }
+
+    private fun getAppFactory(): ViewModelProvider.Factory {
+        if(mFactory == null) {
+            mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(this)
+        }
+        return mFactory as ViewModelProvider.Factory
     }
 }

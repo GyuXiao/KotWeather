@@ -17,7 +17,7 @@ object RoomHelper {
     }
 
     suspend fun queryAllPlaces(loadState: MutableLiveData<State>): MutableList<Place> {
-        val response = placeDao?.queryAllPlace()?.asReversed()
+        val response = placeDao?.queryAllPlace()?.reversed()?.toMutableList()
         if (response!!.isEmpty()) {
             loadState.postValue(State(StateType.SUCCESS))
         }

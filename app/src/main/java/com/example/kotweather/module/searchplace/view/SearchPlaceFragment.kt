@@ -31,6 +31,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
         initHeaderView()
     }
 
+    // 这里是搜索城市的结果列表recyclerView的适配器
     private fun initAdapter() {
         mAdapter = SearchPlaceAdapter(R.layout.search_result_item, null)// debug：我曾把第一个参数写错了
         place_recycle.layoutManager =
@@ -41,7 +42,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
             val place = mAdapter.getItem(position)
             place?.let {
                 mViewModel.insertPlace(place)
-                hideKeyboard()
+                hideKeyboard() // 输入正确完成后，点击任一项，收起键盘，然后执行下一行代码跳转到addedPlace页
                 Navigation.findNavController(view).navigateUp()
             }
         }
@@ -90,7 +91,6 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
 
     private fun setPlaceList(placeList: MutableList<Place>) {
         mAdapter.setNewInstance(placeList)
-        mAdapter.loadMoreModule.loadMoreComplete()
     }
 
 }

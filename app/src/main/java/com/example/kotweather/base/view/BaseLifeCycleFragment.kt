@@ -10,12 +10,17 @@ import com.example.kotweather.common.Utils
 import com.example.kotweather.common.callback.EmptyCallback
 import com.example.kotweather.common.callback.ErrorCallback
 import com.example.kotweather.common.callback.LoadingCallback
+import com.example.kotweather.common.getAppViewModel
 import com.example.kotweather.common.state.State
 import com.example.kotweather.common.state.StateType
+import com.example.kotweather.module.main.AppViewModel
 import com.kingja.loadsir.callback.SuccessCallback
 
 abstract class BaseLifeCycleFragment<VM : BaseViewModel<*>, DB: ViewDataBinding> :
         BaseFragment<VM, DB>() {
+
+    val appViewModel: AppViewModel by lazy { getAppViewModel() }
+
 
     override fun initView() {
         showLoading()

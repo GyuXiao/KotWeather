@@ -10,7 +10,7 @@
     <string name="next_4_days_hourly">接下来4天</string>
     <string name="city">管理城市</string>
     <string name="more">更多</string>
-    <string name="next_5_days_hourly">接下来五天</string>
+    <string name="next_5_days_daily">五天预报</string>
 
     <!--feed back-->
     <string name="error_message">发生了一些错误</string>

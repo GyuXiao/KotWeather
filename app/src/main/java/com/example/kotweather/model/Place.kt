@@ -13,7 +13,7 @@ data class Place(
         @PrimaryKey(autoGenerate = true)
         var primaryKey: Int,// 主键，并把autoGenerate参数指定为true，使得主键的值是自动生成的
 
-        val name: String,
+        var name: String,
         val location: Location,
         @SerializedName("formatted_address") val address: String = ""
 ) {
