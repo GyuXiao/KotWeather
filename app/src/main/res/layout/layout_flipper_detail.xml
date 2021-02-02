@@ -15,7 +15,7 @@
         android:inAnimation="@anim/slide_in_bottom"
         android:orientation="horizontal"
         android:outAnimation="@anim/slide_out_top"
-        android:padding="@dimen/spacing_middle">
+        android:paddingBottom="@dimen/spacing_large">
 
         <TextView
             android:id="@+id/humidity_text_view"
@@ -44,7 +44,7 @@
         android:inAnimation="@anim/slide_in_bottom"
         android:orientation="horizontal"
         android:outAnimation="@anim/slide_out_top"
-        android:padding="@dimen/spacing_middle">
+        android:paddingBottom="@dimen/spacing_large">
 
         <TextView
             android:id="@+id/wind_text_view"

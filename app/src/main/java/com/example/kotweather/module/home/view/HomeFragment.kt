@@ -20,6 +20,7 @@ import com.example.kotweather.module.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.view.*
 import kotlinx.android.synthetic.main.layout_container.*
+import kotlinx.android.synthetic.main.layout_current_place_detail.*
 import kotlinx.android.synthetic.main.layout_flipper_detail.*
 import kotlinx.android.synthetic.main.life_index.*
 
@@ -39,14 +40,14 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
 //        handleBundle()
     }
 
-    private fun handleBundle() {
-        val lng = arguments?.getString("lng")
-        val lat = arguments?.getString("lat")
-        val name = arguments?.getString("placeName")
-        mViewModel.loadRealtimeWeather(lng, lat)
-        mViewModel.loadDailyWeather(lng, lat)
-        initToolBar(name)
-    }
+//    private fun handleBundle() {
+//        val lng = arguments?.getString("lng")
+//        val lat = arguments?.getString("lat")
+//        val name = arguments?.getString("placeName")
+//        mViewModel.loadRealtimeWeather(lng, lat)
+//        mViewModel.loadDailyWeather(lng, lat)
+//        initToolBar(name)
+//    }
 
     private fun initToolBar(title : String?){
         home_bar.home_title.text = title

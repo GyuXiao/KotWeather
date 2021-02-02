@@ -32,51 +32,11 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     app:cardBackgroundColor="@color/blueBackground"
-                    app:cardCornerRadius="30dp">
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="@dimen/dp_10">
 
-                    <LinearLayout
-                        android:paddingTop="@dimen/spacing_medium"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <include layout="@layout/layout_current_place_detail"/>
 
-                        <TextView
-                            android:id="@+id/temp_text_view"
-                            android:layout_gravity="center"
-                            android:text="20"
-                            android:textColor="@color/always_white_text"
-                            android:textSize="50sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/description_text_view"
-                            android:layout_gravity="center"
-                            android:text="Rain"
-                            android:textColor="@color/always_white_text"
-                            android:textSize="30sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <!--需要改进-->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/spacing_large"
-                            android:layout_marginTop="@dimen/dp_40"
-                            android:orientation="horizontal">
-
-                            <include layout="@layout/layout_flipper_detail"/>
-
-                            <ImageView
-                                android:id="@+id/animation_view"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                app:lottie_autoPlay="true"
-                                app:lottie_loop="true" />
-                        </LinearLayout>
-                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <View
@@ -92,7 +52,8 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     app:cardBackgroundColor="@color/blueBackground"
-                    app:cardCornerRadius="30dp">
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="@dimen/dp_10">
                 </androidx.cardview.widget.CardView>
                 <View
                     android:layout_width="0dp"
@@ -108,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/next_5_days_daily"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_horizontal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <View
@@ -136,7 +97,8 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     app:cardBackgroundColor="@color/blueBackground"
-                    app:cardCornerRadius="30dp">
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="@dimen/dp_10">
 
                     <include layout="@layout/life_index"/>
                 </androidx.cardview.widget.CardView>

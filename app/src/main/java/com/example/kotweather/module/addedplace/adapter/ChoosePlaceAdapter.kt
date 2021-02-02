@@ -12,7 +12,7 @@ class ChoosePlaceAdapter(layout: Int, listData: MutableList<Place>?) :
                 layout, listData), LoadMoreModule
 {
     init {
-        setAdapterAnimation(4)
+        setAdapterAnimation(2)
     }
     override fun convert(holder: BaseViewHolder, item: Place) {
         holder?.let { holder ->
@@ -20,5 +20,10 @@ class ChoosePlaceAdapter(layout: Int, listData: MutableList<Place>?) :
                 holder.setText(R.id.location_name, item.name)
             }
         }
+    }
+
+    override fun onViewAttachedToWindow(holder: BaseViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        setAdapterAnimation(2)
     }
 }
