@@ -4,8 +4,9 @@ import androidx.room.*
 import com.example.kotweather.model.Place
 
 /**
- * Dao是数据访问对象的意思，通常会在这里对数据库的各项操作进行封装，
- * 目的是避免逻辑层直接和底层数据库打交道，直接和Dao交互即可
+ * Room使用第二步
+ * Dao是数据访问对象的意思，通常会在这里对数据库的各项操作进行封装，目的是避免逻辑层直接和底层数据库打交道，
+ * 这里直接和PlaceDao交互即可
  */
 @Dao
 interface PlaceDao {

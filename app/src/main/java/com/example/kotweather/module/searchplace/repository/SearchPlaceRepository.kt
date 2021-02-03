@@ -7,6 +7,9 @@ import com.example.kotweather.common.state.State
 import com.example.kotweather.model.Place
 import com.example.kotweather.module.searchplace.model.SearchPlaceResponse
 
+/**
+ * 搜索城市页面的仓库层，这里有两个作用，一是发起网络请求，二是将数据插入数据库
+ */
 class SearchPlaceRepository(var loadState: MutableLiveData<State>) : ApiRepository() {
 
     suspend fun searchPlaces(query: String): SearchPlaceResponse {

@@ -10,6 +10,7 @@ import com.example.kotweather.model.Place
 import com.example.kotweather.module.addedplace.model.dao.PlaceDao
 
 /**
+ * Room使用第三步
  * 定义database，只需要写好三个部分
  * 1，数据库的版本号，2，包含哪些实体类，3，提供Dao层的访问实例
  */

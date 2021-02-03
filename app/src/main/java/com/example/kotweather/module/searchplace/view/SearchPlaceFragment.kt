@@ -41,7 +41,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val place = mAdapter.getItem(position)
             place?.let {
-                mViewModel.insertPlace(place)
+                mViewModel.insertPlace(place) // 调用mViewModel的insertPlace()方法向viewmodel层插入数据
                 hideKeyboard() // 输入正确完成后，点击任一项，收起键盘，然后执行下一行代码跳转到addedPlace页
                 Navigation.findNavController(view).navigateUp()
             }

@@ -65,7 +65,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
         mRvArticle?.layoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         mRvArticle.adapter = mAdapter
-        // 这里长按的话，只起删除作用
+        // 这里长按的话，只起删除作用，还需要修改
         mAdapter.setOnItemLongClickListener { adapter, view, position ->
             val place = mAdapter.getItem(position)
             place?.let {

@@ -7,11 +7,17 @@ import com.example.kotweather.common.state.StateType
 import com.example.kotweather.model.Place
 import com.example.kotweather.module.addedplace.model.database.PlaceDataBase
 
+/**
+ * Room使用第四步
+ * 这里相当于Service层，主要是处理数据库的逻辑
+ */
 object RoomHelper {
+    // 第一步，获取数据库实例
     private val placeDataBase by lazy {
         PlaceDataBase.getInstance(BaseApplication.instance)
     }
 
+    // 第二步，获取Dao层的访问实例
     private val placeDao by lazy {
         placeDataBase?.placeDao()
     }
