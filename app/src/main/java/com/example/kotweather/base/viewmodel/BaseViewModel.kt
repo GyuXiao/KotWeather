@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.kotweather.base.repository.BaseRepository
-import com.example.kotweather.common.Utils
 import com.example.kotweather.common.state.State
+import com.example.kotweather.common.util.CommonUtil
 
 open class BaseViewModel<T : BaseRepository>(application: Application) : AndroidViewModel(application) {
     val loadState by lazy {
@@ -13,7 +13,7 @@ open class BaseViewModel<T : BaseRepository>(application: Application) : Android
     }
 
     val mRepository: T by lazy {
-        (Utils.getClass<T>(this))
+        (CommonUtil.getClass<T>(this))
                 .getDeclaredConstructor(MutableLiveData::class.java)
                 .newInstance(loadState)
     }

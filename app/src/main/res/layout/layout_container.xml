@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="fill_vertical"
-            android:layout_marginBottom="80dp">
+            android:fillViewport="true">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -48,13 +48,24 @@
                     style="@style/Widget.MaterialComponents.CardView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/card_view_height"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/spacing_mlarge"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
                     app:cardBackgroundColor="@color/blueBackground"
                     app:cardCornerRadius="30dp"
                     app:cardElevation="@dimen/dp_10">
+
+                    <com.example.kotweather.common.custom.WeatherView
+                        android:id="@+id/weather_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#333"
+                        android:scrollbarSize="4dp"
+                        android:scrollbarThumbHorizontal="@drawable/scroll_bar_thumb"
+                        android:scrollbarTrackHorizontal="@drawable/scroll_bar_thumb"/>
                 </androidx.cardview.widget.CardView>
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="@dimen/spacing_large"/>

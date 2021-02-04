@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.kotweather.common.callback.*
+import com.example.kotweather.common.util.SPreference
 import com.kingja.loadsir.core.LoadSir
 
 /*
@@ -29,6 +30,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        SPreference.setContext(this)
         initLoadSir()
         mAppViewModelStore = ViewModelStore()
     }

@@ -5,7 +5,7 @@ import com.example.kotweather.base.BaseApplication
 import com.example.kotweather.common.state.State
 import com.example.kotweather.common.state.StateType
 import com.example.kotweather.model.Place
-import com.example.kotweather.module.addedplace.model.database.PlaceDataBase
+import com.example.kotweather.module.chooseplace.model.database.PlaceDataBase
 
 /**
  * Room使用第四步
@@ -23,7 +23,7 @@ object RoomHelper {
     }
 
     suspend fun queryAllPlaces(loadState: MutableLiveData<State>): MutableList<Place> {
-        val response = placeDao?.queryAllPlace()?.reversed()?.toMutableList()
+        val response = placeDao?.queryAllPlace()?.toMutableList()
         if (response!!.isEmpty()) {
             loadState.postValue(State(StateType.SUCCESS))
         }
@@ -38,9 +38,9 @@ object RoomHelper {
     suspend fun insertPlace(place: Place) {
         placeDao?.let {
             it.queryPlaceByName(place.name)?.let {
-                var i = placeDao!!.deleteArticle(place)
+                var i = placeDao!!.deleteArticle(it)
             }
-            it.insertPlace(place.apply { primaryKey = 0 })
+            it.insertPlace(place)
         }
     }
 

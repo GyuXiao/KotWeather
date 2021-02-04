@@ -5,7 +5,13 @@ object Constant {
 
     const val CAIYUN_TOKEN = "gOaYKJBsKjfKoFTC"
 
-    const val SUCCESS = 0
+    const val LNG_KEY = "lng"
 
-    const val NOT_LOGIN = -1001
+    const val LAT_KEY = "lat"
+
+    const val PLACE_NAME = "name"
+
+    const val POSITION = "position"
+
+    const val GAODE_KEY = "33be24253ef2aa372e7cc3c6713b7c9a"
 }

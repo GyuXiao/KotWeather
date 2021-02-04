@@ -1,93 +1,44 @@
 package com.example.kotweather.module.home.view
 
-import android.annotation.SuppressLint
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
-import com.example.kotweather.common.Utils
-import com.example.kotweather.common.getSky
+import com.example.kotweather.common.Constant
+import com.example.kotweather.common.util.CommonUtil
+import com.example.kotweather.common.util.SPreference
 import com.example.kotweather.databinding.HomeFragmentBinding
-import com.example.kotweather.model.DailyResponse
-import com.example.kotweather.model.RealtimeResponse
-import com.example.kotweather.module.home.adapter.DailyAdapter
-import com.example.kotweather.module.home.viewmodel.HomeViewModel
+import com.example.kotweather.model.Place
+import com.example.kotweather.module.home.adapter.HomeDetailAdapter
+import com.example.kotweather.module.home.viewmodel.HomeDetailViewModel
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
+import kotlinx.android.synthetic.main.home_detail_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.view.*
-import kotlinx.android.synthetic.main.layout_container.*
-import kotlinx.android.synthetic.main.layout_current_place_detail.*
-import kotlinx.android.synthetic.main.layout_flipper_detail.*
-import kotlinx.android.synthetic.main.life_index.*
 
-class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() {
-    private lateinit var mAdapter: DailyAdapter
+
+class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBinding>() {
+
+//    private var mPosition: Int by SPreference(Constant.POSITION, 0)
+
+    private val mPlaceNameList = arrayListOf<String>()
 
     override fun initView() {
         super.initView()
+        initToolBar()
         setHasOptionsMenu(true)
-        initToolBar("")
-        initAdapter()
     }
 
     override fun initData() {
         super.initData()
-        mViewModel.queryFirstPlace()
-//        handleBundle()
-    }
-
-//    private fun handleBundle() {
-//        val lng = arguments?.getString("lng")
-//        val lat = arguments?.getString("lat")
-//        val name = arguments?.getString("placeName")
-//        mViewModel.loadRealtimeWeather(lng, lat)
-//        mViewModel.loadDailyWeather(lng, lat)
-//        initToolBar(name)
-//    }
-
-    private fun initToolBar(title : String?){
-        home_bar.home_title.text = title
-        home_bar.setTitle("")
-        (requireActivity() as AppCompatActivity).setSupportActionBar(home_bar)
-    }
-
-    override fun initDataObserver() {
-        super.initDataObserver()
-        appViewModel.currectPlace.observe(this, Observer { it->
-            it?.let {
-                initToolBar(it.name)
-                mViewModel.loadRealtimeWeather(it.location.lng, it.location.lat)
-                mViewModel.loadDailyWeather(it.location.lng, it.location.lat)
-            }
-        })
-
-        mViewModel.mRealtimeData.observe(this, Observer { response->
-            response?.let {
-                initCurrentData(it.result.realtime)
-            }
-        })
-
-        mViewModel.mDailyData.observe(this, Observer { response->
-            response?.let {
-                val dailyDataList = ArrayList<DailyResponse.DailyData>()
-                for(i in 0 until it.result.daily.skycon.size){
-                    dailyDataList.add(
-                            DailyResponse.DailyData(
-                                    it.result.daily.skycon[i].date,
-                                    it.result.daily.skycon[i].value,
-                                    it.result.daily.temperature[i].max,
-                                    it.result.daily.temperature[i].min
-                            )
-                    )
-                }
-                initDailyData(dailyDataList)
-                initDailyIndex(it.result.daily.life_index)
-            }
-        })
+        appViewModel.queryAllPlace()
     }
 
     override fun getLayoutId() = R.layout.home_fragment
@@ -99,41 +50,83 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_city -> {
-                Navigation.findNavController(home_container).navigate(R.id.action_homeFragment_to_choosePlaceFragment)
+                Navigation.findNavController(home_bar)
+                    .navigate(R.id.action_homeFragment_to_choosePlaceFragment)
             }
             R.id.action_more -> {
-                Utils.showToast(requireContext(), getString(R.string.more))
+                CommonUtil.showToast(requireContext(), getString(R.string.more))
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initAdapter() {
-        mAdapter = DailyAdapter(R.layout.daily_item, null)
-        home_recycler.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        home_recycler.adapter = mAdapter
+    override fun initDataObserver() {
+        super.initDataObserver()
+        appViewModel.mPlaceData.observe(this, Observer { response->
+            response?.let {
+                if(response.isEmpty()){ // 有点问题
+                    Navigation.findNavController(home_normal_view).navigate(R.id.action_homeFragment_to_choosePlaceFragment)
+                }
+                initHomeDetailFragment(it)
+            }
+        })
     }
 
-    private fun initDailyData(dailyData: MutableList<DailyResponse.DailyData>){
-        mAdapter.setNewInstance(dailyData)
+    private fun initToolBar(){
+        home_bar.setTitle("")
+        (requireActivity() as AppCompatActivity).setSupportActionBar(home_bar)
     }
 
-    private fun initDailyIndex(lifeIndex: DailyResponse.LifeIndex){
-        coldRiskText.text = lifeIndex.coldRisk[0].desc
-        dressingText.text = lifeIndex.dressing[0].desc
-        ultravioletText.text = lifeIndex.ultraviolet[0].desc
-        carWashingText.text = lifeIndex.carWashing[0].desc
+    private fun initHomeDetailFragment(dataList: MutableList<Place>) {
+        val tabs = arrayListOf<String>()
+        val fragments = arrayListOf<Fragment>()
+        for (data in dataList) {
+            tabs.add(data.name)
+            fragments.add(
+                HomeDetailFragment.newInstance(
+                    data.name,
+                    data.location.lng,
+                    data.location.lat
+                )
+            )
+        }
+        mPlaceNameList.clear()
+        mPlaceNameList.addAll(tabs)
+        if(mPlaceNameList.isNotEmpty()) {// 判空很重要
+            home_bar.home_title.text = mPlaceNameList[0]
+        }
+        home_viewpager.adapter = HomeDetailAdapter(childFragmentManager, tabs, fragments)
+        //设置监听
+        home_viewpager.addOnPageChangeListener(TitlePageChangeListener())
+        indicator_view
+            .setSliderColor(
+                CommonUtil.getColor(requireContext(), R.color.dark),
+                CommonUtil.getColor(requireContext(), R.color.always_white_text)
+            )
+            .setSliderWidth(resources.getDimension(R.dimen.safe_padding))
+            .setSliderHeight(resources.getDimension(R.dimen.safe_padding))
+            .setSlideMode(IndicatorSlideMode.WORM)
+            .setIndicatorStyle(IndicatorStyle.CIRCLE)
+            .setupWithViewPager(home_viewpager)
     }
 
-    @SuppressLint("ResourceType")
-    private fun initCurrentData(realtime: RealtimeResponse.Realtime) {
-        temp_text_view.text = "${realtime.temperature.toInt()} ℃"
-        description_text_view.text = getSky(realtime.skycon).info
-        animation_view.setImageResource(getSky(realtime.skycon).icon)
-        humidity_text_view.text = "湿度: ${realtime.humidity.toString()}"
-        wind_text_view.text = "风力: ${realtime.wind.speed.toString()}"
-        visible_text_view.text = "能见度: ${realtime.visibility.toString()}"
-        index_text_view.text = "空气指数: ${realtime.air_quality.aqi.chn.toInt()}"
+    private inner class TitlePageChangeListener: ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+        }
+
+        override fun onPageSelected(position: Int) {
+            changeTitle(position)
+        }
+    }
+
+    private fun changeTitle(position: Int) {
+        home_bar.home_title.text = mPlaceNameList[position]
     }
 }

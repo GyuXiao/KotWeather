@@ -4,9 +4,7 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.kotweather.base.viewmodel.BaseViewModel
-import com.example.kotweather.common.Utils
 import com.example.kotweather.common.callback.*
 import com.example.kotweather.common.getAppViewModel
 import com.example.kotweather.common.state.State

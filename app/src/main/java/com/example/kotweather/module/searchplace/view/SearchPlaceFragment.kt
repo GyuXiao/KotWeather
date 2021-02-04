@@ -14,9 +14,8 @@ import com.example.kotweather.module.searchplace.adapter.SearchPlaceAdapter
 import com.example.kotweather.module.searchplace.viewmodel.SearchPlaceViewModel
 import kotlinx.android.synthetic.main.custom_bar.view.*
 import kotlinx.android.synthetic.main.search_place_fragment.*
-import java.util.*
 import androidx.lifecycle.Observer
-import com.example.kotweather.common.KeyboardUtils.hideKeyboard
+import com.example.kotweather.common.util.KeyboardUtils.hideKeyboard
 
 
 class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPlaceFragmentBinding>() {

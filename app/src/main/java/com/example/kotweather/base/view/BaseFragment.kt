@@ -11,10 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.example.kotweather.R
 import com.example.kotweather.base.viewmodel.BaseViewModel
-import com.example.kotweather.common.Utils
+import com.example.kotweather.common.util.CommonUtil
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
@@ -38,7 +37,7 @@ abstract class BaseFragment<VM: BaseViewModel<*>, DB: ViewDataBinding> : Fragmen
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        mViewModel = ViewModelProvider(this).get(Utils.getClass(this))
+        mViewModel = ViewModelProvider(this).get(CommonUtil.getClass(this))
         mDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         mDataBinding.lifecycleOwner = this
         loadService = LoadSir.getDefault().register(mDataBinding.root) { reLoad() }

@@ -1,9 +1,9 @@
 package com.example.kotweather.network
 
 import com.example.kotweather.common.Constant
-import com.example.kotweather.model.DailyResponse
-import com.example.kotweather.model.HourlyResponse
-import com.example.kotweather.model.RealtimeResponse
+import com.example.kotweather.model.Daily
+import com.example.kotweather.model.HourlyData
+import com.example.kotweather.model.RealtimeData
 import com.example.kotweather.module.searchplace.model.SearchPlaceResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,17 +24,17 @@ interface ApiService {
     suspend fun loadRealtimeWeather(
             @Path("lng") lng: String?,
             @Path("lat") lat: String?
-    ): RealtimeResponse
+    ): RealtimeData
 
     @GET("v2.5/${Constant.CAIYUN_TOKEN}/{lng},{lat}/daily.json")
     suspend fun loadDailyWeather(
             @Path("lng") lng: String?,
             @Path("lat") lat: String?
-    ): DailyResponse
+    ): Daily
 
-    @GET("v2.5/${Constant.CAIYUN_TOKEN}/{lng},{lat}/hourly.json")
+    @GET("v2.5/${Constant.CAIYUN_TOKEN}/{lng},{lat}/hourly.json?hourlysteps=12")
     suspend fun loadHourlyWeather(
             @Path("lng") lng: String?,
             @Path("lat") lat: String?
-    ): HourlyResponse
+    ): HourlyData
 }

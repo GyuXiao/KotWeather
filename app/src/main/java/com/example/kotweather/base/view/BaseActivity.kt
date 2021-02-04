@@ -3,7 +3,6 @@ package com.example.kotweather.base.view
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.kotweather.R
 import com.example.kotweather.base.viewmodel.BaseViewModel
 import com.example.kotweather.common.AppManager
-import com.example.kotweather.common.Utils
+import com.example.kotweather.common.util.CommonUtil
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
@@ -39,7 +38,7 @@ abstract class BaseActivity<VM: BaseViewModel<*>, DB: ViewDataBinding>: AppCompa
         mDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
         mDataBinding.lifecycleOwner = this
         AppManager.instance.addActivity(this)
-        mViewModel = ViewModelProvider(this).get(Utils.getClass(this))
+        mViewModel = ViewModelProvider(this).get(CommonUtil.getClass(this))
         initView()
         initData()
     }
@@ -53,7 +52,7 @@ abstract class BaseActivity<VM: BaseViewModel<*>, DB: ViewDataBinding>: AppCompa
     override fun onBackPressed() {
         val time = System.currentTimeMillis()
         if(time - mExitTime > 2000) {
-            Utils.showToast(this, getString(R.string.exit_app))
+            CommonUtil.showToast(this, getString(R.string.exit_app))
             mExitTime = time
         } else {
             AppManager.instance.exitApp(this)
