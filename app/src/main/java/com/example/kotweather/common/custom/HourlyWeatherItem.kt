@@ -3,6 +3,7 @@ package com.example.kotweather.common.custom
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -32,6 +33,10 @@ class HourlyWeatherItem(context: Context) :
         mWIndLevel = mRootView.findViewById(R.id.hourly_wind_level)
         mAirLevel = mRootView.findViewById(R.id.hourly_air_level)
         mWeatherImage = mRootView.findViewById(R.id.hourly_weather_img)
+        rootView.layoutParams = LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         addView(mRootView)
     }
 
@@ -40,11 +45,11 @@ class HourlyWeatherItem(context: Context) :
     }
 
     fun getTempX(): Float {
-        return if (mTemperatureView != null) mTemperatureView.x else 0F
+        return if (mTemperatureView != null) mTemperatureView.x else 0.0F
     }
 
     fun getTempY(): Float {
-        return if (mTemperatureView != null) mTemperatureView.y else 0F
+        return if (mTemperatureView != null) mTemperatureView.y else 0.0F
     }
 
     fun setWeather(weather: String?) {
@@ -63,7 +68,7 @@ class HourlyWeatherItem(context: Context) :
         mAirLevel?.text = airLevel
     }
 
-    fun setTemp(temp: Double) {
+    fun setTemp(temp: Int) {
         mTemperatureView?.setTemp(temp)
     }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.example.kotweather.common.callback.*
 import com.example.kotweather.common.util.SPreference
 import com.kingja.loadsir.core.LoadSir
+import java.lang.reflect.ParameterizedType
 
 /*
  * Description: 获取全局Context的准备
@@ -58,5 +59,11 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
             mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(this)
         }
         return mFactory as ViewModelProvider.Factory
+    }
+
+    // 加入反射？
+    @Suppress("UNCHECKED_CAST")
+    fun <VM> getVmClazz(obj: Any) : VM {
+        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as VM
     }
 }

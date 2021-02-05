@@ -39,7 +39,6 @@
 
         <com.example.kotweather.common.custom.TemperatureView
             android:id="@+id/hourly_temp"
-            android:layout_marginTop="10px"
             android:layout_width="match_parent"
             android:layout_height="110px" />
 

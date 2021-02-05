@@ -1,4 +1,4 @@
-package com.example.kotweather.module.chooseplace.model.database
+package com.example.kotweather.module.searchplace.model.database
 
 import android.content.Context
 import androidx.room.Database
@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.kotweather.model.LocationTypeConverter
 import com.example.kotweather.model.Place
-import com.example.kotweather.module.chooseplace.model.dao.PlaceDao
+import com.example.kotweather.module.searchplace.model.dao.PlaceDao
 
 /**
  * Room使用第三步

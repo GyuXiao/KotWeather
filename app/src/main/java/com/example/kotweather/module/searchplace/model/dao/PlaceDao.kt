@@ -1,4 +1,4 @@
-package com.example.kotweather.module.chooseplace.model.dao
+package com.example.kotweather.module.searchplace.model.dao
 
 import androidx.room.*
 import com.example.kotweather.model.Place
@@ -28,7 +28,7 @@ interface PlaceDao {
 
     @Transaction
     @Delete(entity = Place::class)
-    suspend fun deleteArticle(place: Place): Int
+    suspend fun deletePlace(place: Place): Int
 
     @Transaction
     @Query("DELETE FROM place")

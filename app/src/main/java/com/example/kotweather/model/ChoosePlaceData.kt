@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 data class ChoosePlaceData(
         @PrimaryKey(autoGenerate = true)
         var privateKey: Int,
-        var isLocation: Boolean,
         val name: String,
         val temperature: Int,
         val skycon: String

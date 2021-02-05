@@ -3,7 +3,7 @@ package com.example.kotweather.network
 import com.example.kotweather.common.Constant
 import com.example.kotweather.model.Daily
 import com.example.kotweather.model.HourlyData
-import com.example.kotweather.model.RealtimeData
+import com.example.kotweather.model.RealTime
 import com.example.kotweather.module.searchplace.model.SearchPlaceResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,7 +24,7 @@ interface ApiService {
     suspend fun loadRealtimeWeather(
             @Path("lng") lng: String?,
             @Path("lat") lat: String?
-    ): RealtimeData
+    ): RealTime
 
     @GET("v2.5/${Constant.CAIYUN_TOKEN}/{lng},{lat}/daily.json")
     suspend fun loadDailyWeather(

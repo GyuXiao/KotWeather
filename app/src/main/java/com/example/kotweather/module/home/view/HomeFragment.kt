@@ -3,6 +3,7 @@ package com.example.kotweather.module.home.view
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,21 +11,19 @@ import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
-import com.example.kotweather.common.Constant
+import com.example.kotweather.common.getActivityMessageViewModel
+import com.example.kotweather.common.init
 import com.example.kotweather.common.util.CommonUtil
-import com.example.kotweather.common.util.SPreference
 import com.example.kotweather.databinding.HomeFragmentBinding
 import com.example.kotweather.model.Place
-import com.example.kotweather.module.home.adapter.HomeDetailAdapter
-import com.example.kotweather.module.home.viewmodel.HomeDetailViewModel
+import com.example.kotweather.module.home.viewmodel.HomeViewModel
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
-import kotlinx.android.synthetic.main.home_detail_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.android.synthetic.main.home_fragment.view.*
 
 
-class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBinding>() {
+class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() {
 
 //    private var mPosition: Int by SPreference(Constant.POSITION, 0)
 
@@ -37,8 +36,7 @@ class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBindi
     }
 
     override fun initData() {
-        super.initData()
-        appViewModel.queryAllPlace()
+        mViewModel.queryAllPlace()
     }
 
     override fun getLayoutId() = R.layout.home_fragment
@@ -62,12 +60,19 @@ class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBindi
 
     override fun initDataObserver() {
         super.initDataObserver()
-        appViewModel.mPlaceData.observe(this, Observer { response->
+        mViewModel.mPlaceData.observe(this, Observer { response->
             response?.let {
-                if(response.isEmpty()){ // 有点问题
-                    Navigation.findNavController(home_normal_view).navigate(R.id.action_homeFragment_to_choosePlaceFragment)
+                if(response.size == 0){
+                    CommonUtil.showToast(requireContext(), "请添加城市")
+                    Navigation.findNavController(home_normal_view).navigate(R.id.choosePlaceFragment)
                 }
                 initHomeDetailFragment(it)
+                showSuccess()
+            }
+        })
+        getActivityMessageViewModel().addPlace.observe(this, Observer {
+            it?.let {
+                mViewModel.queryAllPlace()
             }
         })
     }
@@ -84,9 +89,10 @@ class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBindi
             tabs.add(data.name)
             fragments.add(
                 HomeDetailFragment.newInstance(
-                    data.name,
-                    data.location.lng,
-                    data.location.lat
+                        data.name,
+                        data.location.lng,
+                        data.location.lat,
+                        data.primaryKey
                 )
             )
         }
@@ -95,23 +101,27 @@ class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBindi
         if(mPlaceNameList.isNotEmpty()) {// 判空很重要
             home_bar.home_title.text = mPlaceNameList[0]
         }
-        home_viewpager.adapter = HomeDetailAdapter(childFragmentManager, tabs, fragments)
+        home_viewpager.offscreenPageLimit = mPlaceNameList.size
+        // viewPager在这里上场
+        home_viewpager.init(childFragmentManager, fragments)
         //设置监听
         home_viewpager.addOnPageChangeListener(TitlePageChangeListener())
-        indicator_view
-            .setSliderColor(
-                CommonUtil.getColor(requireContext(), R.color.dark),
-                CommonUtil.getColor(requireContext(), R.color.always_white_text)
+
+        indicator_view.setSliderColor(
+                CommonUtil.getColor(requireContext(), R.color.grey_10),
+                CommonUtil.getColor(requireContext(), R.color.material_blue)
             )
             .setSliderWidth(resources.getDimension(R.dimen.safe_padding))
             .setSliderHeight(resources.getDimension(R.dimen.safe_padding))
             .setSlideMode(IndicatorSlideMode.WORM)
             .setIndicatorStyle(IndicatorStyle.CIRCLE)
             .setupWithViewPager(home_viewpager)
+        indicator_view.visibility = View.VISIBLE
     }
 
     private inner class TitlePageChangeListener: ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {
+            indicator_view.visibility = View.VISIBLE
         }
 
         override fun onPageScrolled(
@@ -123,6 +133,7 @@ class HomeFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBindi
 
         override fun onPageSelected(position: Int) {
             changeTitle(position)
+            indicator_view.visibility =View.VISIBLE
         }
     }
 

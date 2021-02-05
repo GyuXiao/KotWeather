@@ -15,17 +15,22 @@ import com.example.kotweather.module.searchplace.viewmodel.SearchPlaceViewModel
 import kotlinx.android.synthetic.main.custom_bar.view.*
 import kotlinx.android.synthetic.main.search_place_fragment.*
 import androidx.lifecycle.Observer
+import com.example.kotweather.common.getActivityMessageViewModel
 import com.example.kotweather.common.util.KeyboardUtils.hideKeyboard
+import com.example.kotweather.model.ChoosePlaceData
 
 
 class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPlaceFragmentBinding>() {
 
     private lateinit var mAdapter: SearchPlaceAdapter
 
+    private lateinit var mPlace: Place
+
     override fun getLayoutId() = R.layout.search_place_fragment
 
     override fun initView() {
         super.initView()
+        showSuccess()
         initAdapter()
         initHeaderView()
     }
@@ -40,9 +45,9 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val place = mAdapter.getItem(position)
             place?.let {
+                mPlace = place
+                mViewModel.loadRealtimeWeather(place.location.lng, place.location.lat)
                 mViewModel.insertPlace(place) // 调用mViewModel的insertPlace()方法向viewmodel层插入数据
-                hideKeyboard() // 输入正确完成后，点击任一项，收起键盘，然后执行下一行代码跳转到addedPlace页
-                Navigation.findNavController(view).navigateUp()
             }
         }
     }
@@ -84,6 +89,32 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
         mViewModel.mSearchPlacesData.observe(this, Observer {
             it?.let {
                 setPlaceList(it.places)
+            }
+        })
+
+        mViewModel.mRealTimeData.observe(this, Observer {
+            it?.let {
+                mViewModel.insertChoosePlace(
+                        ChoosePlaceData(
+                                0,
+                                mPlace.name,
+                                it.result.realtime.temperature.toInt(),
+                                it.result.realtime.skycon)
+                )
+            }
+        })
+
+        mViewModel.mPlaceInsertResult.observe(this, Observer {
+            it?.let {
+                getActivityMessageViewModel().addPlace.postValue(true)
+                hideKeyboard()
+            }
+        })
+
+        mViewModel.mChoosePlaceInsertResult.observe(this, Observer {
+            it?.let {
+                getActivityMessageViewModel().addChoosePlace.postValue(true)
+                Navigation.findNavController(search_place).navigateUp()
             }
         })
     }

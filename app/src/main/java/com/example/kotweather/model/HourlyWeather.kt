@@ -1,7 +1,7 @@
 package com.example.kotweather.model
 
 data class HourlyWeather (
-        val temp: Double,
+        val temp: Int,
         val skycon: Skycon,
         val weather: String,
         val time: String,

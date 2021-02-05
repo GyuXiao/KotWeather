@@ -1,6 +1,6 @@
 package com.example.kotweather.model
 
-data class RealtimeData(
+data class RealTime(
         val api_status: String,
         val api_version: String,
         val lang: String,

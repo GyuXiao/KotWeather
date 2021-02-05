@@ -6,7 +6,6 @@ import com.example.kotweather.common.RoomHelper
 import com.example.kotweather.common.state.State
 
 class HomeDetailRepository(var loadState: MutableLiveData<State>): ApiRepository() {
-    suspend fun queryFirstPlace() = RoomHelper.queryFirstPlace(loadState)
 
     suspend fun queryAllPlace() = RoomHelper.queryAllPlaces(loadState)
 
@@ -18,4 +17,7 @@ class HomeDetailRepository(var loadState: MutableLiveData<State>): ApiRepository
 
     suspend fun loadHourlyWeather(lng: String?, lat: String?) =
             apiService.loadHourlyWeather(lng, lat)
+
+    suspend fun updateChoosePlace(temperature: Int, skycon: String, name: String) =
+            RoomHelper.updateChoosePlace(temperature, skycon, name)
 }

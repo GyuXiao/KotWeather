@@ -1,6 +1,5 @@
 package com.example.kotweather.common.custom
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -36,7 +35,7 @@ class WeatherView :
 
     constructor(mContext: Context) : super(mContext,null)
 
-    // 因为这里没加init()导致mPath一直没有初始化？
+    // 因为这里没加init()导致mPath一直没有初始化？是的！
     constructor(mContext: Context, attrs: AttributeSet) :
             super(mContext, attrs,0) {
         init(mContext, attrs)
@@ -64,24 +63,24 @@ class WeatherView :
             if (root.childCount > 0) {
 //                val intensity = 0.16f
                 var hourlyWeatherItem = root.getChildAt(0) as HourlyWeatherItem
-                val dX: Float = hourlyWeatherItem.getTempX()
-                val dY: Float = hourlyWeatherItem.getTempY()
+                val dX: Int = hourlyWeatherItem.getTempX().toInt()
+                val dY: Int = hourlyWeatherItem.getTempY().toInt()
                 val temperatureView =
                     hourlyWeatherItem.findViewById<View>(R.id.hourly_temp) as TemperatureView
                 temperatureView.setRadius(10F)
-                val x = dX + temperatureView.getXPoint()
-                val y = dY + temperatureView.getYPoint()
+                val x = (dX + temperatureView.getXPoint()).toInt()
+                val y = (dY + temperatureView.getYPoint()).toInt()
                 mPath.reset()
-                mPath.moveTo(x, y)
+                mPath.moveTo(x.toFloat(), y.toFloat())
 
                 //折线
                 for (i in 0 until root.childCount - 1) {
                     val child: HourlyWeatherItem = root.getChildAt(i) as HourlyWeatherItem
                     val child1: HourlyWeatherItem = root.getChildAt(i + 1) as HourlyWeatherItem
-                    val dayX = child.getTempX() + child.getWidth() * i
-                    val dayY = child.getTempY()
-                    val dayX1 = child1.getTempX() + child1.getWidth() * (i + 1)
-                    val dayY1 = child1.getTempY()
+                    val dayX = child.getTempX().toInt() + child.width * i
+                    val dayY = child.getTempY().toInt()
+                    val dayX1 = (child1.getTempX()).toInt() + child1.width * (i + 1)
+                    val dayY1 = child1.getTempY().toInt()
                     val tempV = child.findViewById<View>(R.id.hourly_temp) as TemperatureView
                     val tempV1 = child1.findViewById<View>(R.id.hourly_temp) as TemperatureView
                     tempV.setRadius(10F)
@@ -97,6 +96,7 @@ class WeatherView :
                         y11,
                         mPaint
                     )
+                    invalidate()
                 }
             }
         }
@@ -108,10 +108,6 @@ class WeatherView :
         invalidate()
     }
 
-    fun setLineColor(color: Int) {
-        mLineColor = color
-        mPaint.setColor(mLineColor)
-    }
 
     fun setOnWeatherItemClickListener(weatherItemClickListener: OnWeatherItemClickListener) {
         onWeatherItemClickListener = weatherItemClickListener
@@ -135,21 +131,21 @@ class WeatherView :
         }
     }
 
-    private fun getMaxTemp(list: ArrayList<HourlyWeather>?): Double {
+    private fun getMaxTemp(list: ArrayList<HourlyWeather>?): Int {
         return (
                 if (list != null) {
                     Collections.max<HourlyWeather>(
                             list, TempComparator()
                     ).temp
-                } else 0.0)
+                } else 0)
     }
 
-    private fun getMinTemp(list: ArrayList<HourlyWeather>?): Double {
+    private fun getMinTemp(list: ArrayList<HourlyWeather>?): Int {
         return (if (list != null) {
             Collections.min<HourlyWeather>(
                 list, TempComparator()
             ).temp
-        } else 0.0)
+        } else 0)
     }
 
     @Throws(Exception::class)
@@ -219,5 +215,4 @@ class WeatherView :
             hourlyWeather: HourlyWeather?
         )
     }
-
 }

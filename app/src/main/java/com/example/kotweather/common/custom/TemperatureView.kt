@@ -9,7 +9,7 @@ import android.view.View
 class TemperatureView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private var mMaxTemp = 0
     private var mMinTemp = 0
-    private var mTemp = 0.0
+    private var mTemp = 0
     private lateinit var mPointPaint: Paint
 //    private lateinit var mLinePaint: Paint
     private lateinit var mTextPaint: Paint
@@ -17,9 +17,9 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
     private var mPointColor = 0
     private var mTextColor = 0
     private var mRadius = 6F
-    private var mTextSize = 26
-    private var mXPoint = 0
-    private var mYPoint = 0
+    private var mTextSize = 26F
+    private var mXPoint = 0F
+    private var mYPoint = 0F
     private var mWidth = 0
 
     init {
@@ -28,8 +28,8 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
 
     private fun init() {
 //        mLineColor = -0x6c5ede
-        mTextColor = -0x1
-        mPointColor = -0x1
+        mTextColor = 0xffffffff.toInt()
+        mPointColor = 0xffffffff.toInt()
         mPointPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 //        mLinePaint = Paint()
         mTextPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -37,7 +37,7 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
 //        mLinePaint.color = mLineColor
         mPointPaint.color = mPointColor
         mTextPaint.color = mTextColor
-        mTextPaint.textSize = mTextSize.toFloat()
+        mTextPaint.textSize = mTextSize
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -50,24 +50,24 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
         var height = height
         var x = width / 2
         var y =
-                ((height - height * (mTemp - mMinTemp) * 1.0F / (mMaxTemp - mMinTemp)) + mTextSize * 2).toInt()
-        mXPoint = x
+                (height - height * (mTemp - mMinTemp) * 1.0F / (mMaxTemp - mMinTemp)) + mTextSize * 2
+        mXPoint = x.toFloat()
         mYPoint = y
         mWidth = width
         canvas?.let { it ->
-            it.drawCircle(x.toFloat(), y.toFloat(), mRadius, mPointPaint)
+            it.drawCircle(mXPoint, mYPoint, mRadius, mPointPaint)
         }
     }
 
     private fun drawText(canvas: Canvas?) {
-        val height: Int = height
+        val height = height - mTextSize * 4
         val y =
                 (height - height * (mTemp - mMinTemp) * 1.0f / (mMaxTemp - mMinTemp)) + mTextSize * 2
-        val dayTemp: String = mTemp.toString() + "°"
+        val dayTemp: String = mTemp.toString() + "°C"
         val widDay: Float = mTextPaint.measureText(dayTemp)
         val hei: Float = mTextPaint.descent() - mTextPaint.ascent()
         canvas?.let { it ->
-            it.drawText(dayTemp, width / 2 - widDay / 2, (y - mRadius - hei / 2).toFloat(), mTextPaint)
+            it.drawText(dayTemp, width / 2 - widDay / 2, y - mRadius - hei / 2, mTextPaint)
         }
     }
 
@@ -88,7 +88,7 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
 
     fun getYPoint() = mYPoint
 
-    fun setTemp(temp : Double) {
+    fun setTemp(temp : Int) {
         this.mTemp = temp
     }
     fun getTemp() = mTemp
