@@ -4,7 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 
-class MessageViewModel(application: Application): AndroidViewModel(application) {
+class AppMessageViewModel(application: Application): AndroidViewModel(application) {
     val addChoosePlace = MutableLiveData<Boolean>()
     var addPlace = MutableLiveData<Boolean>()
+    val changeCurrentPlace = MutableLiveData<Boolean>()
 }

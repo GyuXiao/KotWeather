@@ -10,15 +10,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AppViewModel(application: Application): BaseViewModel<MainRepository>(application) {
-    var currentPlace = MutableLiveData<Place>()
+class AppViewModel(application: Application): BaseViewModel<AppRepository>(application) {
+    var currentPlace = MutableLiveData<Int>()
 
     val mPlaceData: MutableLiveData<MutableList<Place>> = MutableLiveData()
 
     val mChoosePlaceData: MutableLiveData<MutableList<ChoosePlaceData>> = MutableLiveData()
 
-    fun changeCurrentPlace(place: Place) {
-        currentPlace.value = place
+    fun changeCurrentPlace(position: Int) {
+        currentPlace.value = position
     }
 
     fun queryAllPlace() {
