@@ -11,6 +11,7 @@ import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
 import com.example.kotweather.common.Constant
 import com.example.kotweather.common.getActivityMessageViewModel
+import com.example.kotweather.common.util.CommonUtil
 import com.example.kotweather.common.util.SPreference
 import com.example.kotweather.module.chooseplace.adapter.ChoosePlaceAdapter
 import com.example.kotweather.module.chooseplace.viewModel.ChoosePlaceViewModel
@@ -47,6 +48,17 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
     override fun initDataObserver() {
         mViewModel.mChoosePlaceData.observe(this, Observer { response ->
             response?.let {
+                if (response.size == 0) {
+                    // 没有添加城市前将选择权交给用户
+                    CommonUtil.showToast(requireContext(), "请先添加城市~")
+                    mHeaderView.detail_start.setOnClickListener {
+                        CommonUtil.showToast(requireContext(), "请先添加城市~")
+                    }
+                } else {
+                    mHeaderView.detail_start.setOnClickListener {
+                        Navigation.findNavController(it).navigateUp()
+                    }
+                }
                 setPlaceList(response)
             }
         })
@@ -132,7 +144,9 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
                         positiveButton(R.string.delete) {
                             mViewModel.deletePlace(place.name)
                             mViewModel.deleteChoosePlace(place)
-                            mAdapter.removeAt(position)
+                            getActivityMessageViewModel().addPlace.postValue(true)
+                            mAdapter.getViewByPosition(position+1, R.id.location_delete)?.visibility = View.GONE
+                            mAdapter.notifyDataSetChanged()
                         }
                     }
                 }

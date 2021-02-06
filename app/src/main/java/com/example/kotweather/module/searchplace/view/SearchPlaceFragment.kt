@@ -59,6 +59,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
             detail_end.visibility = View.GONE
             detail_start.setOnClickListener {
                 Navigation.findNavController(it).navigateUp()
+                hideKeyboard()
             }
         }
     }

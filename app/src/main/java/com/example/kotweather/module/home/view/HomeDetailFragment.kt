@@ -19,13 +19,12 @@ import com.example.kotweather.common.util.getAirLevel
 import com.example.kotweather.common.util.getSky
 import com.example.kotweather.common.util.getWindOri
 import com.example.kotweather.common.util.getWindSpeed
-import com.example.kotweather.databinding.HomeFragmentBinding
+import com.example.kotweather.databinding.HomeDetailFragmentBinding
 import com.example.kotweather.model.Daily
 import com.example.kotweather.model.HourlyWeather
 import com.example.kotweather.model.RealTime
 import com.example.kotweather.module.home.adapter.HomeDailyAdapter
 import com.example.kotweather.module.home.viewmodel.HomeDetailViewModel
-import kotlinx.android.synthetic.main.daily_item.*
 import kotlinx.android.synthetic.main.home_detail_fragment.*
 import kotlinx.android.synthetic.main.layout_container.*
 import kotlinx.android.synthetic.main.layout_current_place_detail.*
@@ -33,7 +32,7 @@ import kotlinx.android.synthetic.main.layout_flipper_detail.*
 import kotlinx.android.synthetic.main.life_index.*
 
 
-class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmentBinding>() {
+class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailFragmentBinding>() {
 
     private lateinit var mAdapterHome: HomeDailyAdapter
 
@@ -42,8 +41,6 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmen
     private val mLat: String by lazy { arguments?.getString(Constant.LAT_KEY) ?: "" }
 
     private val mPlaceName: String by lazy { arguments?.getString(Constant.PLACE_NAME) ?: "" }
-
-    private val mPrivateKey: Int by lazy { arguments?.getInt(Constant.PLACE_PRIVATE_KEY) ?: 0 }
 
     var list = ArrayList<HourlyWeather>()
 
@@ -147,6 +144,7 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeFragmen
         home_container.setProgressBackgroundColorSchemeColor(
                 ContextCompat.getColor(requireContext(), R.color.material_blue)
         )
+        mDataBinding.homeDetailViewModel = mViewModel
         home_container.setColorSchemeColors(Color.WHITE)
         home_container.setOnRefreshListener { initData() }
     }

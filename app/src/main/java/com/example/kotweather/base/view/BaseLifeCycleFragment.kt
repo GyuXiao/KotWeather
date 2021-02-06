@@ -64,6 +64,8 @@ abstract class BaseLifeCycleFragment<VM : BaseViewModel<*>, DB: ViewDataBinding>
 
     override fun reLoad() {
         showLoading()
+        initData()
+        initDataObserver()
         super.reLoad()
     }
 
