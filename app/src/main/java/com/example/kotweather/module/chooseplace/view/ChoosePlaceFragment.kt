@@ -68,6 +68,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
                 mAdapter.notifyDataSetChanged()
             }
         })
+        // 首页未滑动前显示的城市，是一个被观察对象，因为点击某个城市后需要跳转到首页显示该城市的具体天气信息
         appViewModel.currentPlace.observe(this, Observer {
             it?.let {
                 getActivityMessageViewModel().changeCurrentPlace.postValue(true)
@@ -155,7 +156,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
             true
         }
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            appViewModel.changeCurrentPlace(position)
+            appViewModel.changeCurrentPlace(position) // 跳转
             Navigation.findNavController(view).navigateUp()
         }
     }

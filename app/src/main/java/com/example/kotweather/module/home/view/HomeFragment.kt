@@ -76,6 +76,7 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
             }
         })
 
+        // 从choosePlaceFragment点击某城市跳转过来，viewPager需要观察是否改变
         getActivityMessageViewModel().changeCurrentPlace.observe(this, Observer {
             it?.let {
                 home_viewpager.setCurrentItem(appViewModel.currentPlace.value!!, true)
