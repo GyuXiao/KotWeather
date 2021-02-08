@@ -64,20 +64,20 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
         mViewModel.mPlaceData.observe(this, Observer { response->
             response?.let {
                 if(response.size == 0){
-                    Navigation.findNavController(home_normal_view).navigate(R.id.action_homeFragment_to_choosePlaceFragment)
+                    Navigation.findNavController(home_normal_view).navigate(R.id.choosePlaceFragment)
                 }
                 initHomeDetailFragment(it)
                 showSuccess()
             }
         })
-        getEventViewModel().addPlace.observe(this, Observer {
+        requireActivity().getEventViewModel().addPlace.observe(this, Observer {
             it?.let {
                 mViewModel.queryAllPlace()
             }
         })
 
         // 从choosePlaceFragment点击某城市跳转过来，viewPager需要观察是否改变
-        getEventViewModel().changeCurrentPlace.observe(this, Observer {
+        requireActivity().getEventViewModel().changeCurrentPlace.observe(this, Observer {
             it?.let {
                 home_viewpager.setCurrentItem(appViewModel.currentPlace.value!!, true)
             }

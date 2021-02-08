@@ -98,6 +98,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
                 mViewModel.insertChoosePlace(
                         ChoosePlaceData(
                                 0,
+                            false,
                                 mPlace.name,
                                 it.result.realtime.temperature.toInt(),
                                 it.result.realtime.skycon)
@@ -107,14 +108,14 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
 
         mViewModel.mPlaceInsertResult.observe(this, Observer {
             it?.let {
-                getEventViewModel().addPlace.postValue(true)
+                requireActivity().getEventViewModel().addPlace.postValue(true)
                 hideKeyboard()
             }
         })
 
         mViewModel.mChoosePlaceInsertResult.observe(this, Observer {
             it?.let {
-                getEventViewModel().addChoosePlace.postValue(true)
+                requireActivity().getEventViewModel().addChoosePlace.postValue(true)
                 Navigation.findNavController(search_place).navigateUp()
             }
         })

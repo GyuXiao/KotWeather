@@ -1,5 +1,6 @@
 package com.example.kotweather.common
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.kotweather.base.BaseApplication
@@ -19,7 +20,7 @@ fun Fragment.getAppViewModel(): AppViewModel {
     }
 }
 
-fun Fragment.getEventViewModel() :AppEventViewModel {
+fun Activity.getEventViewModel() :AppEventViewModel {
     BaseApplication.instance.let {
         return it.getAppViewModelProvider().get(AppEventViewModel::class.java)
     }

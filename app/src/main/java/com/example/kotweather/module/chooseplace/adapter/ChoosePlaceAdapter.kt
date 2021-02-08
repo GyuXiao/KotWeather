@@ -30,6 +30,8 @@ class ChoosePlaceAdapter(layout: Int, listData: MutableList<ChoosePlaceData>?) :
                                 R.color.blueBackground
                         )
                 )
+                holder.setVisible(R.id.location_tag, item.isLocation)
+                holder.setGone(R.id.location_tag, !item.isLocation)
                 holder.setText(R.id.location_name, item.name)
                 holder.setText(
                         R.id.location_temperature,

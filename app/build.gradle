@@ -51,6 +51,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 kapt{

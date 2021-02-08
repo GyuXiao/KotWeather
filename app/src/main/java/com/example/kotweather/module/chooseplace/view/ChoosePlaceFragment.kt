@@ -38,6 +38,23 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
         initHeaderView()
     }
 
+    private fun initHeaderView() {
+        mHeaderView = View.inflate(requireActivity(), R.layout.custom_bar, null)
+        mHeaderView.apply {
+            detail_title.text = "添加的城市"
+            detail_start.visibility = View.VISIBLE
+            detail_end.visibility = View.VISIBLE
+            detail_end.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_choosePlaceFragment_to_searchPlaceFragment)
+            }
+            detail_start.setOnClickListener {
+                Navigation.findNavController(it).navigateUp()
+            }
+        }
+        mAdapter.addHeaderView(mHeaderView)
+    }
+
     override fun initData() {
         if (mSrlRefresh.isRefreshing) {
             mSrlRefresh.isRefreshing = false
@@ -62,7 +79,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
                 setPlaceList(response)
             }
         })
-        getEventViewModel().addChoosePlace.observe(this, Observer {
+        requireActivity().getEventViewModel().addChoosePlace.observe(this, Observer {
             it?.let {
                 mViewModel.queryAllChoosePlace()
                 mAdapter.notifyDataSetChanged()
@@ -71,7 +88,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
         // 首页未滑动前显示的城市，是一个被观察对象，因为点击某个城市后需要跳转到首页显示该城市的具体天气信息
         appViewModel.currentPlace.observe(this, Observer {
             it?.let {
-                getEventViewModel().changeCurrentPlace.postValue(true)
+                requireActivity().getEventViewModel().changeCurrentPlace.postValue(true)
             }
         })
         showSuccess()
@@ -86,22 +103,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
         mSrlRefresh.setOnRefreshListener { initData() }
     }
 
-    private fun initHeaderView() {
-        mHeaderView = View.inflate(requireActivity(), R.layout.custom_bar, null)
-        mHeaderView.apply {
-            detail_title.text = "添加的城市"
-            detail_start.visibility = View.VISIBLE
-            detail_end.visibility = View.VISIBLE
-            detail_end.setOnClickListener {
-                Navigation.findNavController(it).navigate(
-                        R.id.action_choosePlaceFragment_to_searchPlaceFragment)
-            }
-            detail_start.setOnClickListener {
-                Navigation.findNavController(it).navigateUp()
-            }
-        }
-        mAdapter.addHeaderView(mHeaderView)
-    }
+
 
     private fun initAdapter() {
         mAdapter = ChoosePlaceAdapter(R.layout.place_item, null)
@@ -145,7 +147,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
                         positiveButton(R.string.delete) {
                             mViewModel.deletePlace(place.name)
                             mViewModel.deleteChoosePlace(place)
-                            getEventViewModel().addPlace.postValue(true)
+                            requireActivity().getEventViewModel().addPlace.postValue(true)
                             // 确定删除后，图标不可见
                             mAdapter.getViewByPosition(position+1, R.id.location_delete)?.visibility = View.GONE
                             // 数据更新
