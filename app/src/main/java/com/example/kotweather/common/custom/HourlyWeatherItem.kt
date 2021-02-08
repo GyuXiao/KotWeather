@@ -33,7 +33,7 @@ class HourlyWeatherItem(context: Context) :
         mWIndLevel = mRootView.findViewById(R.id.hourly_wind_level)
         mAirLevel = mRootView.findViewById(R.id.hourly_air_level)
         mWeatherImage = mRootView.findViewById(R.id.hourly_weather_img)
-        rootView.layoutParams = LayoutParams(
+        mRootView.layoutParams = LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         )

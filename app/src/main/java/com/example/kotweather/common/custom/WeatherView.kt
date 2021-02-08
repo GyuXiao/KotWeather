@@ -37,7 +37,7 @@ class WeatherView :
 
     // 因为这里没加init()导致mPath一直没有初始化？是的！
     constructor(mContext: Context, attrs: AttributeSet) :
-            super(mContext, attrs,0) {
+            super(mContext, attrs) {
         init(mContext, attrs)
     }
 
@@ -167,7 +167,7 @@ class WeatherView :
         val llRoot = LinearLayout(context)
         llRoot.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
         llRoot.orientation = LinearLayout.HORIZONTAL
         for (i in 0 until list.size) {
@@ -190,12 +190,12 @@ class WeatherView :
             itemView.setWindLevel(model.windLevel)
             itemView.setAirLevel(model.airLevel)
 //            itemView.(model.getAirLevel())
-            itemView.setLayoutParams(
+            itemView.layoutParams =
                 LinearLayout.LayoutParams(
                     screenWidth / mColumnNumber,
-                    ViewGroup.LayoutParams.MATCH_PARENT
+                    ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-            )
+
             itemView.setClickable(true)
             itemView.setOnClickListener(OnClickListener {
                 if (onWeatherItemClickListener != null) {
