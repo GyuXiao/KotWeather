@@ -15,7 +15,7 @@ import com.example.kotweather.module.searchplace.viewmodel.SearchPlaceViewModel
 import kotlinx.android.synthetic.main.custom_bar.view.*
 import kotlinx.android.synthetic.main.search_place_fragment.*
 import androidx.lifecycle.Observer
-import com.example.kotweather.common.getActivityMessageViewModel
+import com.example.kotweather.common.getEventViewModel
 import com.example.kotweather.common.util.KeyboardUtils.hideKeyboard
 import com.example.kotweather.model.ChoosePlaceData
 
@@ -107,14 +107,14 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
 
         mViewModel.mPlaceInsertResult.observe(this, Observer {
             it?.let {
-                getActivityMessageViewModel().addPlace.postValue(true)
+                getEventViewModel().addPlace.postValue(true)
                 hideKeyboard()
             }
         })
 
         mViewModel.mChoosePlaceInsertResult.observe(this, Observer {
             it?.let {
-                getActivityMessageViewModel().addChoosePlace.postValue(true)
+                getEventViewModel().addChoosePlace.postValue(true)
                 Navigation.findNavController(search_place).navigateUp()
             }
         })

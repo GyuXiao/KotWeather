@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
-import com.example.kotweather.common.getActivityMessageViewModel
+import com.example.kotweather.common.getEventViewModel
 import com.example.kotweather.common.init
 import com.example.kotweather.common.util.CommonUtil
 import com.example.kotweather.databinding.HomeFragmentBinding
@@ -70,14 +70,14 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
                 showSuccess()
             }
         })
-        getActivityMessageViewModel().addPlace.observe(this, Observer {
+        getEventViewModel().addPlace.observe(this, Observer {
             it?.let {
                 mViewModel.queryAllPlace()
             }
         })
 
         // 从choosePlaceFragment点击某城市跳转过来，viewPager需要观察是否改变
-        getActivityMessageViewModel().changeCurrentPlace.observe(this, Observer {
+        getEventViewModel().changeCurrentPlace.observe(this, Observer {
             it?.let {
                 home_viewpager.setCurrentItem(appViewModel.currentPlace.value!!, true)
             }
