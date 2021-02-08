@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class SearchPlaceViewModel(application: Application) : BaseViewModel<SearchPlaceRepository>(application) {
+class SearchPlaceViewModel : BaseViewModel<SearchPlaceRepository>() {
 
     val mSearchPlacesData: MutableLiveData<SearchPlaceResponse> = MutableLiveData()
 

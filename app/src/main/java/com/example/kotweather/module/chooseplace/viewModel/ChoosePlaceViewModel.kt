@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ChoosePlaceViewModel(application: Application) : BaseViewModel<ChoosePlaceRepository>(application) {
+class ChoosePlaceViewModel : BaseViewModel<ChoosePlaceRepository>() {
 
     val mPlaceData: MutableLiveData<MutableList<Place>> = MutableLiveData()
     val mRealTimeData: MutableLiveData<RealTime> = MutableLiveData()

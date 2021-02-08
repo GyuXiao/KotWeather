@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeViewModel(application: Application): BaseViewModel<HomeRepository>(application) {
+class HomeViewModel: BaseViewModel<HomeRepository>() {
     val mPlaceData: MutableLiveData<MutableList<Place>> = MutableLiveData()
 
     fun queryAllPlace() {

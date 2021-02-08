@@ -1,10 +1,9 @@
 package com.example.kotweather.module.main
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class AppEventViewModel(application: Application): AndroidViewModel(application) {
+class AppEventViewModel: ViewModel() {
     val addChoosePlace = MutableLiveData<Boolean>()
     var addPlace = MutableLiveData<Boolean>()
     val changeCurrentPlace = MutableLiveData<Boolean>()

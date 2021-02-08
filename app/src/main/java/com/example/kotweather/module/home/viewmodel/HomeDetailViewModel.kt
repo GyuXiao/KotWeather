@@ -11,8 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeDetailViewModel(application: Application):
-    BaseViewModel<HomeDetailRepository>(application) {
+class HomeDetailViewModel: BaseViewModel<HomeDetailRepository>() {
 
 //    val mFirstPlaceData: MutableLiveData<Place> = MutableLiveData()
 //    val mPlaceData: MutableLiveData<MutableList<Place>> = MutableLiveData()
