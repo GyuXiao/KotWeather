@@ -51,7 +51,7 @@
     <TextView
         android:id="@+id/hourly_wind_level"
         android:layout_width="match_parent"
-        android:layout_height="60px"
+        android:layout_height="40px"
         android:layout_marginBottom="@dimen/safe_padding"
         android:gravity="center"
         android:text="3级"
@@ -61,11 +61,11 @@
     <TextView
         android:id="@+id/hourly_air_level"
         android:layout_width="60px"
-        android:layout_height="38px"
-        android:layout_marginBottom="@dimen/safe_padding"
+        android:layout_height="60px"
+        android:layout_marginTop="20dp"
         android:background="@drawable/good_level_shape"
         android:gravity="center"
         android:text="良"
         android:textColor="#fff"
-        android:textSize="24px" />
+        android:textSize="38px" />
 </LinearLayout>

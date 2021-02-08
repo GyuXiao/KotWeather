@@ -52,7 +52,7 @@
                     android:id="@+id/hourly"
                     style="@style/Widget.MaterialComponents.CardView"
                     android:layout_width="match_parent"
-                    android:layout_height="510dp"
+                    android:layout_height="530dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/spacing_mlarge"
                     android:layout_marginTop="@dimen/dp_10"
