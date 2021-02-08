@@ -22,4 +22,6 @@
     <color name="scrim">#99323232</color>
     <color name="dark">#000000</color>
     <color name="blueBackground">#0091EA</color>
+    <color name="material_blue_dark">#806452f0</color>
+
 </resources>

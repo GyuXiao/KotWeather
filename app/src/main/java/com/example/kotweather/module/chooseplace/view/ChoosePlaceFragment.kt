@@ -146,7 +146,9 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
                             mViewModel.deletePlace(place.name)
                             mViewModel.deleteChoosePlace(place)
                             getEventViewModel().addPlace.postValue(true)
+                            // 确定删除后，图标不可见
                             mAdapter.getViewByPosition(position+1, R.id.location_delete)?.visibility = View.GONE
+                            // 数据更新
                             mAdapter.notifyDataSetChanged()
                         }
                     }

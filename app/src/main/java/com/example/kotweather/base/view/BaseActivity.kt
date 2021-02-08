@@ -49,15 +49,16 @@ abstract class BaseActivity<VM: BaseViewModel<*>, DB: ViewDataBinding>: AppCompa
         }
     }
 
-    override fun onBackPressed() {
-        val time = System.currentTimeMillis()
-        if(time - mExitTime > 2000) {
-            CommonUtil.showToast(this, getString(R.string.exit_app))
-            mExitTime = time
-        } else {
-            AppManager.instance.exitApp(this)
-        }
-    }
+//    override fun onBackPressed() {
+//        val time = System.currentTimeMillis()
+//        if(time - mExitTime > 2000) {
+//            CommonUtil.showToast(this, getString(R.string.exit_app))
+//            mExitTime = time
+//        }
+//        else {
+//            AppManager.instance.exitApp(this)
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
