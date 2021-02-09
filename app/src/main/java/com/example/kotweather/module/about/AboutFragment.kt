@@ -53,13 +53,13 @@ class AboutFragment: PreferenceFragmentCompat(), SharedPreferences.OnSharedPrefe
 
     private fun init() {
 
-        findPreference<Preference>("简书")?.setOnPreferenceClickListener {
+        findPreference<Preference>("CSDN")?.setOnPreferenceClickListener {
             view?.let {
                 if (Navigation.findNavController(it).currentDestination?.id == R.id.aboutFragment) {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_aboutFragment_to_webFragment, Bundle().apply {
-                            putString("title", "mifankai")
-                            putString("url", "https://www.jianshu.com/u/b03dcb8185b5")
+                            putString("title", "XiaoKai")
+                            putString("url", "https://blog.csdn.net/xiaokai666666?spm=1011.2124.3001.5343")
                         })
                 }
             }

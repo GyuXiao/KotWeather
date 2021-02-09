@@ -7,7 +7,7 @@ import java.lang.reflect.ParameterizedType
 
 object CommonUtil {
     fun showToast(context: Context, string: String) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, string, Toast.LENGTH_LONG).show()
     }
 
     // 通过反射 获取父亲泛型T 对应的 Class类

@@ -12,7 +12,6 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.services.geocoder.GeocodeSearch
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode
-import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
@@ -48,7 +47,10 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.READ_PHONE_STATE
+        Manifest.permission.READ_PHONE_STATE,
+        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+        Manifest.permission.ACCESS_WIFI_STATE,
+        Manifest.permission.CHANGE_WIFI_STATE
     )
     override fun getLayoutId() = R.layout.activity_main
 
@@ -108,15 +110,13 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
         val mOption = AMapLocationClientOption()
         mOption.locationMode = AMapLocationMode.Hight_Accuracy
         mOption.isGpsFirst = true
-        mOption.httpTimeOut = 30000
-        mOption.interval = 2000
+        mOption.httpTimeOut = 20000
         mOption.isNeedAddress = true
         mOption.isOnceLocation = true
-        mOption.isOnceLocationLatest = false
-        AMapLocationClientOption.setLocationProtocol(AMapLocationProtocol.HTTPS)
+        mOption.isOnceLocationLatest = true
         mOption.isSensorEnable = false
         mOption.isWifiScan = true
-        mOption.isLocationCacheEnable = true
+        mOption.isLocationCacheEnable = false
         mOption.geoLanguage = AMapLocationClientOption.GeoLanguage.DEFAULT
         return mOption
     }
@@ -126,7 +126,7 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
             if(location.errorCode == 0) {
                 regeocoder(location.latitude, location.longitude)
             } else {
-                CommonUtil.showToast(this, "定位失败")
+                CommonUtil.showToast(this, "如果不想打开GPS, 也可以手动搜索哦")
             }
         }
     }
@@ -142,7 +142,7 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
     private fun startLocation() {
         locationClient!!.setLocationOption(locationOption)
         locationClient!!.startLocation()
-        CommonUtil.showToast(this, "正在定位中...")
+        CommonUtil.showToast(this, "请打开GPS，开始定位了-（ ゜- ゜）つ口~")
     }
 
     private fun stopLocation() {
