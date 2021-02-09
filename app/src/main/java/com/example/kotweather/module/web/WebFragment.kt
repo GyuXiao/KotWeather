@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
 import com.example.kotweather.databinding.WebFragmentBinding
-import com.example.kotweather.module.main.AppViewModel
+import com.example.kotweather.module.app.AppViewModel
 import com.just.agentweb.AgentWeb
 import com.example.kotweather.common.navigation.NavHostFragment
 import kotlinx.android.synthetic.main.custom_bar.view.*

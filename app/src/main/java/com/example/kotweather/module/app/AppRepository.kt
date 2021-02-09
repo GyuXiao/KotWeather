@@ -1,4 +1,4 @@
-package com.example.kotweather.module.main
+package com.example.kotweather.module.app
 
 import androidx.lifecycle.MutableLiveData
 import com.example.kotweather.base.repository.ApiRepository

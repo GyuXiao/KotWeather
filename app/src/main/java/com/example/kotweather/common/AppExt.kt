@@ -4,8 +4,8 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.kotweather.base.BaseApplication
-import com.example.kotweather.module.main.AppViewModel
-import com.example.kotweather.module.main.AppEventViewModel
+import com.example.kotweather.module.app.AppViewModel
+import com.example.kotweather.module.app.AppEventViewModel
 
 //扩展函数
 fun AppCompatActivity.getAppViewModel(): AppViewModel {
@@ -20,7 +20,7 @@ fun Fragment.getAppViewModel(): AppViewModel {
     }
 }
 
-fun Activity.getEventViewModel() :AppEventViewModel {
+fun Activity.getEventViewModel() : AppEventViewModel {
     BaseApplication.instance.let {
         return it.getAppViewModelProvider().get(AppEventViewModel::class.java)
     }

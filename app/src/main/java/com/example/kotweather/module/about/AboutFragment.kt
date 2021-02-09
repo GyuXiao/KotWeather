@@ -55,11 +55,13 @@ class AboutFragment: PreferenceFragmentCompat(), SharedPreferences.OnSharedPrefe
 
         findPreference<Preference>("简书")?.setOnPreferenceClickListener {
             view?.let {
-                Navigation.findNavController(it)
+                if (Navigation.findNavController(it).currentDestination?.id == R.id.aboutFragment) {
+                    Navigation.findNavController(it)
                         .navigate(R.id.action_aboutFragment_to_webFragment, Bundle().apply {
                             putString("title", "mifankai")
                             putString("url", "https://www.jianshu.com/u/b03dcb8185b5")
                         })
+                }
             }
             false
         }

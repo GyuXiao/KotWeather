@@ -1,4 +1,4 @@
-package com.example.kotweather.module.main
+package com.example.kotweather.module.app
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

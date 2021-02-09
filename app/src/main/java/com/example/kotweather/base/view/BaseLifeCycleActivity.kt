@@ -9,7 +9,7 @@ import com.example.kotweather.common.callback.*
 import com.example.kotweather.common.getAppViewModel
 import com.example.kotweather.common.state.State
 import com.example.kotweather.common.state.StateType
-import com.example.kotweather.module.main.AppViewModel
+import com.example.kotweather.module.app.AppViewModel
 import com.kingja.loadsir.callback.SuccessCallback
 
 abstract class BaseLifeCycleActivity<VM : BaseViewModel<*>, DB: ViewDataBinding>
