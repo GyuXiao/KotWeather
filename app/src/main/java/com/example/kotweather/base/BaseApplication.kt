@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.startup.AppInitializer
 import com.example.kotweather.common.callback.*
+import com.example.kotweather.common.startup.WeatherStartup
 import com.example.kotweather.common.util.SPreference
 import com.kingja.loadsir.core.LoadSir
 import java.lang.reflect.ParameterizedType
@@ -34,6 +36,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         SPreference.setContext(this)
         initLoadSir()
         mAppViewModelStore = ViewModelStore()
+        AppInitializer.getInstance(instance).initializeComponent(WeatherStartup::class.java)
     }
 
     // LoadSir是一个加载反馈页管理框架，在加载网络或其他数据时候，

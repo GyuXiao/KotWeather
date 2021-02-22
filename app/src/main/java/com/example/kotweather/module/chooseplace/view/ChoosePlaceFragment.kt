@@ -86,7 +86,7 @@ class ChoosePlaceFragment: BaseLifeCycleFragment<ChoosePlaceViewModel, FragmentL
             }
         })
         // 首页未滑动前显示的城市，是一个被观察对象，因为点击某个城市后需要跳转到首页显示该城市的具体天气信息
-        appViewModel.currentPlace.observe(this, Observer {
+        appViewModel.mCurrentPlace.observe(this, Observer {
             it?.let {
                 requireActivity().getEventViewModel().changeCurrentPlace.postValue(true)
             }

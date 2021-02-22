@@ -80,7 +80,7 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
         // 从choosePlaceFragment点击某城市跳转过来，viewPager需要观察是否改变
         requireActivity().getEventViewModel().changeCurrentPlace.observe(this, Observer {
             it?.let {
-                home_viewpager.setCurrentItem(appViewModel.currentPlace.value!!, true)
+                home_viewpager.setCurrentItem(appViewModel.mCurrentPlace.value!!, true)
             }
         })
     }
@@ -124,12 +124,12 @@ class HomeFragment: BaseLifeCycleFragment<HomeViewModel, HomeFragmentBinding>() 
             .setSlideMode(IndicatorSlideMode.WORM)
             .setIndicatorStyle(IndicatorStyle.CIRCLE)
             .setupWithViewPager(home_viewpager)
-        indicator_view.visibility = View.VISIBLE
+        indicator_view.visibility = View.INVISIBLE
     }
 
     private inner class TitlePageChangeListener: ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {
-            indicator_view.visibility = View.VISIBLE
+            indicator_view.visibility = View.INVISIBLE
         }
 
         override fun onPageScrolled(

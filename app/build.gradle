@@ -19,9 +19,6 @@ android {
         versionName rootAndroidId.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding {
-        enabled = true
-    }
     buildFeatures {
         dataBinding = true
     }

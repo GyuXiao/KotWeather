@@ -6,8 +6,7 @@ import com.example.kotweather.common.RoomHelper
 import com.example.kotweather.common.state.State
 
 class AppRepository(var loadState: MutableLiveData<State>) : ApiRepository() {
-//    suspend fun queryAllPlace() = RoomHelper.queryAllPlaces(loadState)
-//
-//    suspend fun queryAllChoosePlace() = RoomHelper.queryAllChoosePlace(loadState)
+
+    suspend fun queryAllChoosePlace() = RoomHelper.queryAllChoosePlace(loadState)
 
 }

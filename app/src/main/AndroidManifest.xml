@@ -44,6 +44,17 @@
         </activity>
         <!--定位service-->
         <service android:name="com.amap.api.location.APSService"></service>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.example.kotweather.common.startup.WeatherStartup"
+                android:value="androidx.startup"
+                tools:node="remove"/>
+        </provider>
     </application>
 
 </manifest>
