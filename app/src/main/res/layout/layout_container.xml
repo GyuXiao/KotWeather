@@ -31,7 +31,7 @@
                     android:id="@+id/current"
                     style="@style/Widget.MaterialComponents.CardView"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
+                    android:layout_height="300dp"
                     android:layout_marginStart="@dimen/spacing_mlarge"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/spacing_mlarge"
@@ -52,7 +52,7 @@
                     android:id="@+id/hourly"
                     style="@style/Widget.MaterialComponents.CardView"
                     android:layout_width="match_parent"
-                    android:layout_height="530dp"
+                    android:layout_height="320dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/spacing_mlarge"
                     android:layout_marginTop="@dimen/dp_10"
@@ -86,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/next_5_days_daily"
+                        android:textColor="@color/blueBackground"
                         android:layout_gravity="center_horizontal"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 

@@ -27,14 +27,10 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
     }
 
     private fun init() {
-//        mLineColor = -0x6c5ede
         mTextColor = 0xffffffff.toInt()
         mPointColor = 0xffffffff.toInt()
         mPointPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-//        mLinePaint = Paint()
         mTextPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-//        mLinePaint.color = mLineColor
         mPointPaint.color = mPointColor
         mTextPaint.color = mTextColor
         mTextPaint.textSize = mTextSize
@@ -50,7 +46,7 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
         var height = height
         var x = width / 2
         var y =
-                (height - height * (mTemp - mMinTemp) * 1.0F / (mMaxTemp - mMinTemp)) + mTextSize * 2
+                (height - height * (mTemp - mMinTemp + 1.0F) * 1.0F / ((mMaxTemp - mMinTemp) * 2.0F))
         mXPoint = x.toFloat()
         mYPoint = y
         mWidth = width
@@ -62,7 +58,7 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
     private fun drawText(canvas: Canvas?) {
         val height = height - mTextSize * 4
         val y =
-                (height - height * (mTemp - mMinTemp) * 1.0f / (mMaxTemp - mMinTemp)) + mTextSize * 2
+                (height - height * (mTemp - mMinTemp) * 1.0f / ((mMaxTemp - mMinTemp) * 2.0F)) + mTextSize
         val dayTemp: String = mTemp.toString() + "°C"
         val widDay: Float = mTextPaint.measureText(dayTemp)
         val hei: Float = mTextPaint.descent() - mTextPaint.ascent()
