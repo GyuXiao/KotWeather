@@ -36,6 +36,8 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         SPreference.setContext(this)
         initLoadSir()
         mAppViewModelStore = ViewModelStore()
+        // 在AndroidManifest.xml中配置了tools:node="remove"，这样App Startup在启动时就无法初始化它了，
+        // 所以，需要在这里手动初始化
         AppInitializer.getInstance(instance).initializeComponent(WeatherStartup::class.java)
     }
 

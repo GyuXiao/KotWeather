@@ -54,7 +54,7 @@ ext {
             "agentweb"                   : "com.just.agentweb:agentweb:$agentweb_version",
             "pgyer_sdk"                  : "com.pgyersdk:sdk:$pgyersdk_version",
             "wrok_manager"              : "androidx.work:work-runtime-ktx:$work_version",
-            "app_startup"               : "androidx.startup:startup-runtime:1.0.0-alpha01",
+            "app_startup"               : "androidx.startup:startup-runtime:1.0.0",
             "easypermissions"            : "pub.devrel:easypermissions:$easypermissions_version"
 
     ]
