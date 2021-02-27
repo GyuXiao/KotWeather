@@ -53,7 +53,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
     }
 
     /**
-     * 获取全局的ViewModel
+     * 用于获取不同作用域的ViewModel
      */
     fun getAppViewModelProvider() : ViewModelProvider{
         return ViewModelProvider(this, this.getAppFactory())

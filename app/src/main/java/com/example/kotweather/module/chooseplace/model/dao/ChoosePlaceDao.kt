@@ -3,6 +3,9 @@ package com.example.kotweather.module.chooseplace.model.dao
 import androidx.room.*
 import com.example.kotweather.model.ChoosePlaceData
 
+/**
+ * ChoosePlace表主要是记录天气信息
+ */
 @Dao
 interface ChoosePlaceDao {
     @Transaction
@@ -20,6 +23,10 @@ interface ChoosePlaceDao {
     @Transaction
     @Query("UPDATE choosePlaceData SET temperature = (:temperature), skycon = (:skycon) WHERE name = (:name)")
     suspend fun updateChoosePlace(temperature: Int, skycon: String, name : String)
+
+    @Transaction
+    @Query("UPDATE choosePlaceData SET isLocation = (:isUnVisible)")
+    suspend fun setLocationTagUnVisible(isUnVisible: Boolean)
 
     @Transaction
     @Delete(entity = ChoosePlaceData::class)

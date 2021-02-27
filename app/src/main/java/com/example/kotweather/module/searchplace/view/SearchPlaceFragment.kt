@@ -47,7 +47,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
             place?.let {
                 mPlace = place
                 mViewModel.loadRealtimeWeather(place.location.lng, place.location.lat)
-                mViewModel.insertPlace(place) // 调用mViewModel的insertPlace()方法向viewmodel层插入数据
+                mViewModel.insertPlace(place) // 点击item，将位置信息插入数据库的Place表
             }
         }
     }
@@ -73,7 +73,7 @@ class SearchPlaceFragment: BaseLifeCycleFragment<SearchPlaceViewModel, SearchPla
         search_places_edit.addTextChangedListener {editable ->
             val content = editable.toString()
             if(content.isNotEmpty()){
-                mViewModel.searchPlaces(content)
+                mViewModel.searchPlaces(content) // 这里输入搜索地点直接发起网络请求，并不需要将数据插入数据库
                 place_recycle.visibility = View.VISIBLE
             }
             else {

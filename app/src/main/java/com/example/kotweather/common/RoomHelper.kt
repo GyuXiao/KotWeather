@@ -78,6 +78,7 @@ object RoomHelper {
 
     suspend fun insertChoosePlace(choosePlaceData: ChoosePlaceData): Long? =
         choosePlaceDao?.let {
+            it.setLocationTagUnVisible(false) // 之前定位过的位置都要将定位标志不可见，可见的只有当前位置
             it.queryChoosePlaceByName(choosePlaceData.name)?.let {
                 var i = choosePlaceDao!!.deleteChoosePlace(it)
                 Log.d("insert", i.toString())

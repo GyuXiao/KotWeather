@@ -186,6 +186,7 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
 
         mViewModel.mRealTimeData.observe(this, Observer {
             it?.let {
+                // 在这里将当前定位到的地点消息插入数据库，同时insertChoosePlace的操作里也包括将之前定位过的地点重置处理
                 mViewModel.insertChoosePlace(
                     ChoosePlaceData(
                         0,

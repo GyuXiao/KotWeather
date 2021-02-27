@@ -54,15 +54,6 @@ class ChoosePlaceViewModel : BaseViewModel<ChoosePlaceRepository>() {
         }
     }
 
-    fun deleteAll(){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                mRepository.deleteAll()
-                queryAllPlace()
-            }
-        }
-    }
-
     fun loadRealtimeWeather(lng: String?, lat: String?) {
         initiateRequest(
                 { mRealTimeData.value = mRepository.loadRealtimeWeather(lng, lat) },
