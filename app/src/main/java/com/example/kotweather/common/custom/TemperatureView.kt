@@ -11,9 +11,7 @@ class TemperatureView(context: Context, attributeSet: AttributeSet) : View(conte
     private var mMinTemp = 0
     private var mTemp = 0
     private lateinit var mPointPaint: Paint
-//    private lateinit var mLinePaint: Paint
     private lateinit var mTextPaint: Paint
-//    private var mLineColor = 0
     private var mPointColor = 0
     private var mTextColor = 0
     private var mRadius = 6F

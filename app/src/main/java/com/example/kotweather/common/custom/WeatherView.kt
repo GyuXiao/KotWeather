@@ -5,37 +5,41 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
+import android.view.View.OnClickListener
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.Scroller
 import com.example.kotweather.R
 import com.example.kotweather.common.util.getSky
 import com.example.kotweather.model.HourlyWeather
 import java.util.*
 
-class WeatherView :
-    HorizontalScrollView {
+
+class WeatherView : HorizontalScrollView {
     private lateinit var mPaint: Paint
     private lateinit var mPath: Path
 
-//    private var mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-//    private var mPath = Path()
-
-    private lateinit var mHourlyWeatherList: ArrayList<HourlyWeather>
+    private var viewWidth = 0
+    private var viewHeight = 0
+    private var screenWidth = 0
+    private var screenHeight = 0
+    private var lineInteval = 0
 
     private var mLineWidth = 6f
-
     private var mLineColor = R.color.always_white_text
+    private var lastX = 0.0F
 
     private var mColumnNumber = 6
 
+    private lateinit var mVelocityTracker: VelocityTracker
+    private lateinit var viewConfiguration: ViewConfiguration
+    private lateinit var scroller: Scroller
+    private lateinit var mHourlyWeatherList: ArrayList<HourlyWeather>
     private lateinit var onWeatherItemClickListener: OnWeatherItemClickListener
 
     constructor(mContext: Context) : super(mContext,null)
 
-    // 因为这里没加init()导致mPath一直没有初始化？是的！
     constructor(mContext: Context, attrs: AttributeSet) :
             super(mContext, attrs) {
         init(mContext, attrs)
@@ -53,6 +57,9 @@ class WeatherView :
         mPaint.style = Paint.Style.STROKE
         mPaint.setColor(context.getColor(mLineColor))
         mPath = Path()
+        scroller = Scroller(context)
+        viewConfiguration = ViewConfiguration.get(context)
+        screenWidth = resources.displayMetrics.widthPixels
     }
 
 
@@ -61,7 +68,6 @@ class WeatherView :
         if (childCount > 0) {
             var root = getChildAt(0) as ViewGroup
             if (root.childCount > 0) {
-//                val intensity = 0.16f
                 var hourlyWeatherItem = root.getChildAt(0) as HourlyWeatherItem
                 val dX: Int = hourlyWeatherItem.getTempX().toInt()
                 val dY: Int = hourlyWeatherItem.getTempY().toInt()
@@ -90,17 +96,55 @@ class WeatherView :
                     val x11 = dayX1 + tempV1.getXPoint()
                     val y11 = dayY1 + tempV1.getYPoint()
                     canvas!!.drawLine(
-                        x1,
-                        y1,
-                        x11,
-                        y11,
-                        mPaint
+                        x1, y1, x11, y11, mPaint
                     )
                     invalidate()
                 }
             }
         }
     }
+
+
+//    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+//        if(mVelocityTracker == null){
+//            mVelocityTracker = VelocityTracker.obtain()
+//        }
+//        mVelocityTracker.addMovement(ev)
+//        when(ev?.action){
+//            MotionEvent.ACTION_DOWN->{
+//                if(!scroller.isFinished){
+//                    scroller.abortAnimation()
+//                }
+//                lastX = ev.x
+//                return true
+//            }
+//            MotionEvent.ACTION_MOVE->{
+//                var x = ev.x
+//                var deltaX = (lastX-x).toInt()
+//                if(scrollX + deltaX < 0){
+//                    scrollTo(0,0)
+//                    return true
+//                } else if(scrollX + deltaX > viewWidth - screenWidth){
+//                    scrollTo(viewWidth-screenWidth, 0)
+//                    return true
+//                }
+//                scrollBy(deltaX, 0)
+//                lastX = x
+//            }
+//            MotionEvent.ACTION_UP->{
+//                var x = ev.x
+//                mVelocityTracker.computeCurrentVelocity(1000)
+//                var xVelocity = mVelocityTracker.getXVelocity().toInt()
+//                if(abs(xVelocity) > viewConfiguration.scaledMinimumFlingVelocity){
+//                    scroller.fling(scrollX,0,-xVelocity,0,0,viewWidth-screenWidth,0,0)
+//                    invalidate()
+//                }
+//            }
+//        }
+//        return super.onTouchEvent(ev)
+//    }
+
+
 
     fun setLineWidth(lineWidth: Float) {
         mLineWidth = lineWidth
@@ -134,17 +178,13 @@ class WeatherView :
     private fun getMaxTemp(list: ArrayList<HourlyWeather>?): Int {
         return (
                 if (list != null) {
-                    Collections.max<HourlyWeather>(
-                            list, TempComparator()
-                    ).temp
+                    Collections.max<HourlyWeather>(list, TempComparator()).temp
                 } else 0)
     }
 
     private fun getMinTemp(list: ArrayList<HourlyWeather>?): Int {
         return (if (list != null) {
-            Collections.min<HourlyWeather>(
-                list, TempComparator()
-            ).temp
+            Collections.min<HourlyWeather>(list, TempComparator()).temp
         } else 0)
     }
 
@@ -178,18 +218,10 @@ class WeatherView :
             itemView.setTime(model.time)
             itemView.setTemp(model.temp)
             itemView.setWeather(model.weather)
-//            if (model.weatherImg === 0) {
-//                if (model.weather != null) {
-//                    itemView.setImg(getSky(model.skycon.value).icon)
-//                }
-//            } else {
-//                itemView.setImg(getSky(model.weather).icon)
-//            }
             itemView.setImg(getSky(model.skycon.value).icon)
             itemView.setWindOri(model.windOri)
             itemView.setWindLevel(model.windLevel)
             itemView.setAirLevel(model.airLevel)
-//            itemView.(model.getAirLevel())
             itemView.layoutParams =
                 LinearLayout.LayoutParams(
                     screenWidth / mColumnNumber,
