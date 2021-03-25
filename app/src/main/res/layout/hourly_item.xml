@@ -32,7 +32,7 @@
         android:layout_marginTop="10px"
         android:src="@drawable/big_level_shape" />
 
-    <com.example.kotweather.common.custom.TemperatureView
+    <com.example.kotweather.module.hourlyTrendView.TemperatureView
         android:id="@+id/hourly_temp"
         android:layout_width="match_parent"
         android:layout_height="300px" />

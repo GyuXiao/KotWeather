@@ -106,7 +106,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
      * @param className The Fragment to instantiate
      * @param args The Fragment's arguments, if any
      * @return A new fragment instance.
-     * @deprecated Set a custom {@link androidx.fragment.app.FragmentFactory} via
+     * @deprecated Set a hourlyTrendView {@link androidx.fragment.app.FragmentFactory} via
      * {@link FragmentManager#setFragmentFactory(FragmentFactory)} to control
      * instantiation of Fragments.
      */
@@ -251,7 +251,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         if (split.length != 2) {
             throw new IllegalStateException("Invalid back stack entry on the "
                     + "NavHostFragment's back stack - use getChildFragmentManager() "
-                    + "if you need to do custom FragmentTransactions from within "
+                    + "if you need to do hourlyTrendView FragmentTransactions from within "
                     + "Fragments created via your navigation graph.");
         }
         try {
@@ -261,7 +261,7 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         } catch (NumberFormatException e) {
             throw new IllegalStateException("Invalid back stack entry on the "
                     + "NavHostFragment's back stack - use getChildFragmentManager() "
-                    + "if you need to do custom FragmentTransactions from within "
+                    + "if you need to do hourlyTrendView FragmentTransactions from within "
                     + "Fragments created via your navigation graph.");
         }
     }

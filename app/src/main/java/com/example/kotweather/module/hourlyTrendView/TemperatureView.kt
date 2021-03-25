@@ -1,4 +1,4 @@
-package com.example.kotweather.common.custom
+package com.example.kotweather.module.hourlyTrendView
 
 import android.content.Context
 import android.graphics.Canvas

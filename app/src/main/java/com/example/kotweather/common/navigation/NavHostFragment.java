@@ -239,7 +239,7 @@ public class NavHostFragment extends Fragment implements NavHost {
 
     /**
      * Callback for when the {@link #getNavController() NavController} is created. If you
-     * support any custom destination types, their {@link Navigator} should be added here to
+     * support any hourlyTrendView destination types, their {@link Navigator} should be added here to
      * ensure it is available before the navigation graph is inflated / set.
      * <p>
      * By default, this adds a {@link FragmentNavigator}.

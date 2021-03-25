@@ -61,7 +61,7 @@
                     app:cardCornerRadius="30dp"
                     app:cardElevation="@dimen/dp_10">
 
-                    <com.example.kotweather.common.custom.WeatherView
+                    <com.example.kotweather.module.hourlyTrendView.WeatherView
                         android:id="@+id/weather_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
 import com.example.kotweather.common.Constant
-import com.example.kotweather.common.custom.HourlyWeatherItem
-import com.example.kotweather.common.custom.WeatherView
+import com.example.kotweather.module.hourlyTrendView.HourlyWeatherItem
+import com.example.kotweather.module.hourlyTrendView.WeatherView
 import com.example.kotweather.common.util.getAirLevel
 import com.example.kotweather.common.util.getSky
 import com.example.kotweather.common.util.getWindOri
