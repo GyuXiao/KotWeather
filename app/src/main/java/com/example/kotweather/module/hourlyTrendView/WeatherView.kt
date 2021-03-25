@@ -10,6 +10,7 @@ import android.view.View.OnClickListener
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.Scroller
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kotweather.R
 import com.example.kotweather.common.util.getSky
 import com.example.kotweather.model.HourlyWeather

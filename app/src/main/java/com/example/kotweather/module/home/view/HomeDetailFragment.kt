@@ -24,6 +24,7 @@ import com.example.kotweather.model.Daily
 import com.example.kotweather.model.HourlyWeather
 import com.example.kotweather.model.RealTime
 import com.example.kotweather.module.home.adapter.HomeDailyAdapter
+import com.example.kotweather.module.home.adapter.HourAdapter
 import com.example.kotweather.module.home.viewmodel.HomeDetailViewModel
 import kotlinx.android.synthetic.main.home_detail_fragment.*
 import kotlinx.android.synthetic.main.layout_container.*
@@ -179,19 +180,19 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailF
 
     private fun initHourlyView(list: ArrayList<HourlyWeather>) {
         // 填充天气数据
-        weather_view.setList(list)
+        hourly_trend_view.setList(list)
 
         // 设置线宽
-        weather_view.setLineWidth(6f)
+        hourly_trend_view.setLineWidth(6f)
 
         //设置一屏幕显示几列(最少3列)
         try {
-            weather_view.setColumnNumber(5)
+            hourly_trend_view.setColumnNumber(5)
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        weather_view.setOnWeatherItemClickListener(object : WeatherView.OnWeatherItemClickListener {
+        hourly_trend_view.setOnWeatherItemClickListener(object : WeatherView.OnWeatherItemClickListener {
             override fun onItemClick(
                     itemView: HourlyWeatherItem?,
                     position: Int,
@@ -201,9 +202,9 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailF
             }
         })
 
-        weather_view.setOnTouchListener(object: View.OnTouchListener { //?
+        hourly_trend_view.setOnTouchListener(object: View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                weather_view.requestDisallowInterceptTouchEvent(true)
+                hourly_trend_view.requestDisallowInterceptTouchEvent(true)
                 return false
             }
         })
