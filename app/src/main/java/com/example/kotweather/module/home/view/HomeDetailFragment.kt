@@ -3,9 +3,6 @@ package com.example.kotweather.module.home.view
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotweather.R
 import com.example.kotweather.base.view.BaseLifeCycleFragment
 import com.example.kotweather.common.Constant
-import com.example.kotweather.module.hourlyTrendView.HourlyWeatherItem
-import com.example.kotweather.module.hourlyTrendView.WeatherView
 import com.example.kotweather.common.util.getAirLevel
 import com.example.kotweather.common.util.getSky
 import com.example.kotweather.common.util.getWindOri
@@ -24,7 +19,7 @@ import com.example.kotweather.model.Daily
 import com.example.kotweather.model.HourlyWeather
 import com.example.kotweather.model.RealTime
 import com.example.kotweather.module.home.adapter.HomeDailyAdapter
-import com.example.kotweather.module.home.adapter.HourAdapter
+import com.example.kotweather.module.home.adapter.HourlyAdapter
 import com.example.kotweather.module.home.viewmodel.HomeDetailViewModel
 import kotlinx.android.synthetic.main.home_detail_fragment.*
 import kotlinx.android.synthetic.main.layout_container.*
@@ -36,6 +31,8 @@ import kotlinx.android.synthetic.main.life_index.*
 class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailFragmentBinding>() {
 
     private lateinit var mAdapterHome: HomeDailyAdapter
+
+    private lateinit var mAdapterHourly: HourlyAdapter
 
     private val mLng: String by lazy { arguments?.getString(Constant.LNG_KEY) ?: "" }
 
@@ -161,6 +158,10 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailF
         mAdapterHome.setNewInstance(dailyData)
     }
 
+    private fun initHourlyView(list: ArrayList<HourlyWeather>){
+        mAdapterHourly.setNewInstance(list)
+    }
+
     @SuppressLint("ResourceType")
     private fun initCurrentData(realtime: RealTime.Realtime) {
         temp_text_view.text = "${realtime.temperature.toInt()} ℃"
@@ -178,42 +179,16 @@ class HomeDetailFragment: BaseLifeCycleFragment<HomeDetailViewModel, HomeDetailF
         index_text_view.text = "空气指数: ${getAirLevel(realtime.air_quality.aqi.chn).airLevel}"
     }
 
-    private fun initHourlyView(list: ArrayList<HourlyWeather>) {
-        // 填充天气数据
-        hourly_trend_view.setList(list)
-
-        // 设置线宽
-        hourly_trend_view.setLineWidth(6f)
-
-        //设置一屏幕显示几列(最少3列)
-        try {
-            hourly_trend_view.setColumnNumber(5)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        hourly_trend_view.setOnWeatherItemClickListener(object : WeatherView.OnWeatherItemClickListener {
-            override fun onItemClick(
-                    itemView: HourlyWeatherItem?,
-                    position: Int,
-                    weatherModel: HourlyWeather?
-            ) {
-                Toast.makeText(requireContext(), position.toString() + "", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        hourly_trend_view.setOnTouchListener(object: View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                hourly_trend_view.requestDisallowInterceptTouchEvent(true)
-                return false
-            }
-        })
-    }
-
     private fun initAdapter() {
         mAdapterHome = HomeDailyAdapter(R.layout.daily_item, null)
         home_recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         home_recycler.adapter = mAdapterHome
+
+        mAdapterHourly = HourlyAdapter(R.layout.hourly_item, null)
+        hourly_recycler.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        hourly_recycler.adapter = mAdapterHourly
+
     }
 }

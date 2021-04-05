@@ -60,12 +60,13 @@
                     app:cardBackgroundColor="@color/blueBackground"
                     app:cardCornerRadius="30dp"
                     app:cardElevation="@dimen/dp_10">
-
-                    <com.example.kotweather.module.hourlyTrendView.WeatherView
-                        android:id="@+id/hourly_trend_view"
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/hourly_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/blueBackground"/>
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp" />
                 </androidx.cardview.widget.CardView>
 
                 <View

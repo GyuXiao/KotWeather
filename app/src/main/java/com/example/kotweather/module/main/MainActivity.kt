@@ -113,7 +113,9 @@ class MainActivity : BaseLifeCycleActivity<MainViewModel, ActivityMainBinding>()
         mOption.httpTimeOut = 20000
         mOption.isNeedAddress = true
         mOption.isOnceLocation = true
-        mOption.isOnceLocationLatest = true
+        if(mOption.isOnceLocation){
+            mOption.isOnceLocationLatest = true
+        }
         mOption.isSensorEnable = false
         mOption.isWifiScan = true
         mOption.isLocationCacheEnable = false
